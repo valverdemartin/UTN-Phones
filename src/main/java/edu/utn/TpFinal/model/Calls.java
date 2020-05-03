@@ -1,12 +1,8 @@
-/*package edu.utn.TpFinal.model;
-
+package edu.utn.TpFinal.model;
 import lombok.*;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -18,20 +14,21 @@ public class Calls {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    private Rates rate;
+    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    private Lines originLine;
+    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    private Lines destLine;
     @NotNull
-    private Long originPhoneNumber;
+    private long duration;
     @NotNull
-    private Long destinationPhoneNumber;
+    private double totalPrice;
     @NotNull
-    private String originCity;
+    private Date callDate;
     @NotNull
-    private String destinationCity;
-    @NotNull
-    private Double minPrice;
-    @NotNull
-    private Long duration;
-    @NotNull
-    private Double totalPrice;
-    @NotNull
+    private boolean invoiced;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Bills bill;
-}*/
+}
+

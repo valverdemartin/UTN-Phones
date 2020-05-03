@@ -10,11 +10,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cities")
-public class CityController {
+public class CitiesController {
     private CitiesService citiesService;
 
     @Autowired
-    public CityController(CitiesService citiesService) {
+    public CitiesController(CitiesService citiesService) {
         this.citiesService = citiesService;
     }
 
@@ -24,7 +24,7 @@ public class CityController {
     }
 
     @PostMapping("/")
-    public void addCities(@RequestBody @Valid final Cities city){
+    public void addCity(@RequestBody @Valid final Cities city){
         citiesService.addCity(city);
     }
 }

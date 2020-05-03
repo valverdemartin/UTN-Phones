@@ -10,21 +10,16 @@ import java.util.Date;
 @Data
 @ToString
 @EqualsAndHashCode
-public class Bills {
+public class Rates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    private Cities originCity;
+    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    private Cities destCity;
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Lines line;
+    private double pricePerMinute;
     @NotNull
-    private Integer callCounter;
-    @NotNull
-    private Double totalPrice;
-    @NotNull
-    private Double priceCost;
-    @NotNull
-    private Date billDate;
-    @NotNull
-    private Date dueDate;
+    private Date rateDate;
 }
