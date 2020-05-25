@@ -1,9 +1,9 @@
 package edu.utn.TpFinal.controller;
+
 import edu.utn.TpFinal.model.Calls;
 import edu.utn.TpFinal.service.CallsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,13 +16,13 @@ public class CallsController {
         this.callsService = CallsService;
     }
 
-    @GetMapping("/all/")
-    public List<Calls> getCalls(){
+    @GetMapping("/")
+    public List<Calls> getCalls() {
         return callsService.getCalls();
     }
 
     @PostMapping("/")
-    public void addCall(@RequestBody @Valid final Calls call){
-        callsService.addCall(call);
+    public void insertNewCall(@RequestParam String origin, String destiny, Long duration) {
+        callsService.insertNewCall(origin, destiny, duration);
     }
 }

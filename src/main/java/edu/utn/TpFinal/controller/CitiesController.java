@@ -18,7 +18,7 @@ public class CitiesController {
         this.citiesService = citiesService;
     }
 
-    @GetMapping("/all/")
+    @GetMapping("/")
     public List<Cities> getCities(){
         return citiesService.getCities();
     }

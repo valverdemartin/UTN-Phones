@@ -16,7 +16,7 @@ public class RatesController {
         this.ratesService = ratesService;
     }
 
-    @GetMapping("/all/")
+    @GetMapping("/")
     public List<Rates> getRates(){
         return ratesService.getRates();
     }

@@ -1,8 +1,6 @@
 package edu.utn.TpFinal.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,19 +11,15 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode
+@Table( name= "provinces")
 
 public class Provinces {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "province_name")
     @NotNull
     private String name;
-    ///////Province-Country//////
-    @ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "provinces")
-    @JsonBackReference
-    @NotNull
-    private Countries country;
     ////////Province-City//////
     @OneToMany(mappedBy = "province")
     private List<Cities> cities;

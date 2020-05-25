@@ -1,13 +1,12 @@
 package edu.utn.TpFinal.service;
 
-import ch.qos.logback.core.net.server.Client;
-import edu.utn.TpFinal.controller.ClientsController;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class ClientsService {
@@ -33,5 +32,9 @@ public class ClientsService {
 
     public Clients getClientsByLastName(String lastName){
         return clientsRepository.findByLastName(lastName);
+    }
+
+    public void putActive(Integer clientId) {
+        clientsRepository.activeUser(clientId);
     }
 }

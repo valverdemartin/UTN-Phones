@@ -1,5 +1,6 @@
 package edu.utn.TpFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.List;
 @EqualsAndHashCode
 
 public class Clients extends Persons {
+    @JsonBackReference
     @OneToMany(mappedBy = "client")
     private List<Lines> line;
-    /*@OneToMany
-    @JoinColumn(name = "Bills")
-    private Bills bill;*/
 }
+
+//ToDo verificar "active" sin valor x defecto.

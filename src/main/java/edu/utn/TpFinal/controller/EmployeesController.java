@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeesController {
@@ -19,11 +20,11 @@ public class EmployeesController {
     }
 
     @GetMapping("/{employeeId}")
-    public Employees getEmployeeById(@RequestParam Integer employeeId){
+    public Employees getEmployeeById(@PathVariable Integer employeeId){
         return employeesService.getEmployeeById(employeeId);
     }
 
-    @GetMapping("/all/")
+    @GetMapping("/")
     public List<Employees> getEmployees(){
         return employeesService.getEmployees();
     }

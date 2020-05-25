@@ -1,8 +1,8 @@
-package edu.utn.TpFinal.controller;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.service.BillsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class BillsController {
         this.billsService = BillsService;
     }
 
-    @GetMapping("/all/")
+    @GetMapping("/")
     public List<Bills> getBills(){
         return billsService.getBills();
     }

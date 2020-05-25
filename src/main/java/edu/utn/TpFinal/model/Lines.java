@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,20 +12,28 @@ import javax.validation.constraints.NotNull;
 @Data
 @ToString
 @EqualsAndHashCode
+@Table( name= "phone_lines")
 
 public class Lines {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "line_number")
     @NotNull
-    private Long phoneNumber;
+    private String phoneNumber;
+    @Column(name = "line_type")
     @NotNull
-    private Boolean type; //1 = movil // 0 = residencial
-    @NotNull
-    private Integer cityPrefix;
+    private String type; // Hacer Enum movil o residencial
+    @JoinColumn(name = "id_city")
     @ManyToOne
-    //@JoinColumn(name = "line")
     @JsonBackReference
+    @NotNull
+    private Cities city;
+    @JoinColumn(name = "id_client")
+    @ManyToOne
+    @JsonIdentityReference
+    //@JsonManagedReference
     private Clients client;
-
+    @Column(name = "active")
+    private Boolean active;
 }

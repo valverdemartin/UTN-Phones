@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -12,18 +13,24 @@ import javax.validation.constraints.NotNull;
 @Data
 @ToString
 @EqualsAndHashCode
+@Table( name= "cities")
 public class Cities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "city_name")
     @NotNull
     private String name;
+    @Column(name = "city_short_name")
+    @NotNull
+    private  String shortName;
+    @Column(name = "city_prefix")
     @NotNull
     private Integer prefix;
+    @JoinColumn(name = "id_province")
     @ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "cities")
     @JsonBackReference
-    Provinces province;
-
-
+    private Provinces province;
+    @OneToMany(mappedBy = "city")
+    private List<Lines> lines;
 }

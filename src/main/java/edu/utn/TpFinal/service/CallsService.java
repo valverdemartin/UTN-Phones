@@ -20,6 +20,10 @@ public class CallsService {
         callsRepository.save(calls);
     }
 
+    public void insertNewCall (String origin, String destiny, Long duration){
+        callsRepository.insertNewCall(origin, destiny, duration);
+    }
+
     public List<Calls> getCalls(){
         return callsRepository.findAll();
     }
