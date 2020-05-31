@@ -33,4 +33,5 @@ public class Cities {
     private Provinces province;
     @OneToMany(mappedBy = "city")
     private List<Lines> lines;
+
 }

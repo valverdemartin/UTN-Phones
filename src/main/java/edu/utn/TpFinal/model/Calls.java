@@ -3,13 +3,13 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-@EqualsAndHashCode
 @Table(name = "calls")
 
 public class Calls {
@@ -17,13 +17,13 @@ public class Calls {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @JoinColumn(name = "id_rate")
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rates rate;
     @JoinColumn(name = "id_origin_line")
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Lines originLine;
     @JoinColumn(name = "id_dest_line")
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Lines destLine;
     @Column(name = "origin_number")
     @NotNull
@@ -35,7 +35,6 @@ public class Calls {
     @NotNull
     private Long duration;
     @Column(name = "total_price")
-    @NotNull
     private double totalPrice;
     @Column(name = "call_date")
     @NotNull
@@ -43,6 +42,24 @@ public class Calls {
     @JoinColumn(name = "id_bill")
     @ManyToOne(fetch = FetchType.EAGER)
     private Bills bill;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Calls)) return false;
+        Calls calls = (Calls) o;
+        return id.equals(calls.id) &&
+                originLine.equals(calls.originLine) &&
+                destLine.equals(calls.destLine) &&
+                duration.equals(calls.duration) &&
+                callDate.equals(calls.callDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originLine, destLine, duration, callDate);
+    }
 }
 
 

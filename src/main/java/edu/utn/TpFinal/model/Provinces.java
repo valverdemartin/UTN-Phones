@@ -23,4 +23,5 @@ public class Provinces {
     ////////Province-City//////
     @OneToMany(mappedBy = "province")
     private List<Cities> cities;
+
 }

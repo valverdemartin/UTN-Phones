@@ -1,3 +1,6 @@
+package edu.utn.TpFinal.controller;
+
+import edu.utn.TpFinal.Exceptions.BillNotExist;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.service.BillsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +27,10 @@ public class BillsController {
     @PostMapping("/")
     public void addBill(@RequestBody @Valid final Bills bill){
         billsService.addBill(bill);
+    }
+
+    @DeleteMapping("/{id}/")
+    public void deleteBillById(@PathVariable Integer id) {
+        billsService.deleteBill(id);
     }
 }

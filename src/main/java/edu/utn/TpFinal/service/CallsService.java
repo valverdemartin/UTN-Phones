@@ -3,6 +3,8 @@ import edu.utn.TpFinal.model.Calls;
 import edu.utn.TpFinal.repository.CallsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 
 @Service
@@ -16,15 +18,12 @@ public class CallsService {
         this.callsRepository = callsRepository;
     }
 
-    public void addCall(final Calls calls){
-        callsRepository.save(calls);
-    }
-
-    public void insertNewCall (String origin, String destiny, Long duration){
-        callsRepository.insertNewCall(origin, destiny, duration);
+    public void addCall(final Calls call){
+        callsRepository.save(call);
     }
 
     public List<Calls> getCalls(){
         return callsRepository.findAll();
     }
+
 }

@@ -1,5 +1,7 @@
 package edu.utn.TpFinal.controller;
 
+import edu.utn.TpFinal.Exceptions.UserNotExistException;
+import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,16 @@ public class ClientsController {
     }
 
     @PutMapping("/{clientId}/")
-    public void activeClient(@PathVariable Integer clientId){
+    public void activeClient(@PathVariable Integer clientId) throws UserNotExistException {
         this.clientsService.putActive(clientId);
+    }
+
+    //Endpoint que retorne el nombre, apellido y llamada más realizada del cliente
+
+    @GetMapping("/projection/{lineId}/{clientId}/{originNumber}")
+    public FavouriteCall favoriteCall(@PathVariable Integer lineId, @PathVariable Integer clientId, @PathVariable String originNumber){
+
+        return clientsService.favouriteCall(lineId, clientId, originNumber);
     }
 }
 

@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @ToString
 @EqualsAndHashCode

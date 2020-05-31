@@ -35,4 +35,7 @@ public class Bills {
     @Column(name = "due_date")
     @NotNull
     private Date dueDate;
+    @Column(name = "active")
+    @NotNull
+    private Boolean active;
 }

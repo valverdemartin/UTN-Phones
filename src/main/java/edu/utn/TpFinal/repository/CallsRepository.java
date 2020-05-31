@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface CallsRepository extends JpaRepository <Calls, Integer>{
-    @Query(value = "call sp(:origin,:destiny,:duration);", nativeQuery = true)
-    void insertNewCall(@Param("origin") String origin, @Param("destiny") String destiny, @Param("duration") Long duration);
+    //@Query(value = "call sp(:origin,:destiny,:duration);", nativeQuery = true)
+    //void insertNewCall(@Param("origin") String origin, @Param("destiny") String destiny, @Param("duration") Long duration);
 }

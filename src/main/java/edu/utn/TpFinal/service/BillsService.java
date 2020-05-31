@@ -1,7 +1,10 @@
 package edu.utn.TpFinal.service;
+import edu.utn.TpFinal.Exceptions.BillNotExist;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.repository.BillsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -21,6 +24,14 @@ public class BillsService {
     }
 
     public List<Bills> getBills(){
-        return billsRepository.findAll();
+        return billsRepository.findByActive(true);
+    }
+
+    @Scheduled()//https://docs.oracle.com/cd/E19226-01/820-7627/giqlg/index.html
+                //https://www.baeldung.com/spring-email
+    public void deleteBill(Integer id) {
+        Bills bill = billsRepository.findById(id).orElseThrow(() -> new BillNotExist(HttpStatus.BAD_REQUEST));//existByid()
+        bill.setActive(Boolean.FALSE);
+        billsRepository.save(bill);
     }
 }

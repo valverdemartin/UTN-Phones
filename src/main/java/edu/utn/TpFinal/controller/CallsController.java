@@ -1,9 +1,13 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.model.Calls;
+import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.CallsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,7 +26,7 @@ public class CallsController {
     }
 
     @PostMapping("/")
-    public void insertNewCall(@RequestParam String origin, String destiny, Long duration) {
-        callsService.insertNewCall(origin, destiny, duration);
+    public void addCall(@RequestBody @Valid Calls call) {
+        callsService.addCall(call);
     }
 }

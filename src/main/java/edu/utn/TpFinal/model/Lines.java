@@ -36,4 +36,5 @@ public class Lines {
     private Clients client;
     @Column(name = "active")
     private Boolean active;
+
 }
