@@ -6,5 +6,10 @@ public interface FavouriteCall {
     String getLastName();
     String getDestLine();
 
+    void setName(String name);
+    void setLastName(String lastName);
+    void setDestLine(String destLine);
+
+
 }
 

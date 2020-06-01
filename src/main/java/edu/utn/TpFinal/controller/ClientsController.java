@@ -49,7 +49,7 @@ public class ClientsController {
     //Endpoint que retorne el nombre, apellido y llamada más realizada del cliente
 
     @GetMapping("/projection/{lineId}/")
-    public FavouriteCall favoriteCall(@PathVariable Integer lineId){
+    public FavouriteCall favouriteCall(@PathVariable Integer lineId){
         return clientsService.favouriteCall(lineId);
     }
 }
