@@ -4,6 +4,7 @@ public interface FavouriteCall {
 
     String getName();
     String getLastName();
-    String getDestNumber();
+    String getDestLine();
 
 }
+

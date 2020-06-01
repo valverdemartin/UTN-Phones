@@ -3,7 +3,9 @@ package edu.utn.TpFinal.service;
 import edu.utn.TpFinal.Exceptions.UserNotExistException;
 import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.ClientsRepository;
+import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.List;
 public class ClientsService{
 
     private final ClientsRepository clientsRepository;
+    private final LinesRespository linesRespository;
 
     @Autowired
-    public ClientsService(ClientsRepository clientsRepository) {
+    public ClientsService(ClientsRepository clientsRepository, LinesRespository linesRespository) {
         this.clientsRepository = clientsRepository;
+        this.linesRespository = linesRespository;
     }
 
     public Clients getClientsById(Integer clientId){
@@ -44,8 +48,8 @@ public class ClientsService{
         clientsRepository.save(client);
     }
 
-    public FavouriteCall favouriteCall(Integer idLine, Integer idClient, String originNumber){
-        FavouriteCall a = clientsRepository.favouriteCall(idLine,idClient,originNumber);
-        return a;
+    public FavouriteCall favouriteCall(Integer idLine){
+        Lines line = linesRespository.findById(idLine).get();
+        return clientsRepository.favouriteCall(idLine,line.getClient().getId(),line.getPhoneNumber());
     }
 }

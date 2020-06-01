@@ -15,7 +15,7 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
     Optional<Clients> findByLastName(String lastName);
     /*@Query(value = "call sp_active_user (?1)", nativeQuery = true)
     void activeUser(Integer clientId);*/
-    @Query(value = "SELECT u.user_name, u.user_last_name, dest_number FROM calls " +
+    @Query(value = "SELECT u.user_name as name, u.user_last_name as lastname, dest_number as destline FROM calls " +
             "JOIN phone_lines as l " +
             "on l.id = :idLine " +
             "JOIN users as u " +
