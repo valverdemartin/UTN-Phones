@@ -32,14 +32,7 @@ public class ClientsControllerTest {
 
     @Test
     public void addClientOk(){
-        Provinces province = new Provinces(1,"Buenos Aires",null);
-        Cities city = new Cities(1, "Mar del Plata", "MDQ", 223, province, null);
-        List<Lines> lines = new ArrayList<>();
-        Lines line = new Lines(1, "1231231", "movil", city, null, true);
-        lines.add(line);
-        Long dni = new Long(39137741);
         Clients clientToAdd = new Clients();
-        clientToAdd.setLine(lines);
         doNothing().when(clientsService).addClient(clientToAdd);
         clientsController.addClient(clientToAdd);
         verify(clientsService, times(1)).addClient(clientToAdd);

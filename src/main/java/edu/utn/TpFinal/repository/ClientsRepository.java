@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.repository;
 
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.model.Clients;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,12 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
             "ORDER BY COUNT(dest_number) DESC " +
             "LIMIT 1;", nativeQuery = true)
     FavouriteCall favouriteCall(@Param("idLine") Integer idLine, @Param("idClient") Integer idClient, @Param("originNumber") String originNumber);
+
+    @Query(value = "SELECT SUM(duration) as sumDuration, u.user_name as name, u.user_last_name as lastname FROM calls " +
+            "JOIN users as u " +
+            "on u.id = :idLine " +
+            "WHERE month(call_date) = :selectedMonth ;", nativeQuery = true)
+    DurationByMonth getDurationByMont(@Param("idLine") Integer idLine, @Param("selectedMonth") Integer selectedMonth);
+
+
 }

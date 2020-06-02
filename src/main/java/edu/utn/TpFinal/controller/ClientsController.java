@@ -2,6 +2,7 @@ package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.UserNotExistException;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,13 @@ public class ClientsController {
     public FavouriteCall favouriteCall(@PathVariable Integer lineId){
         return clientsService.favouriteCall(lineId);
     }
+
+    @GetMapping("/projection/{lineId}/{selectedMonth}/")
+    public DurationByMonth getDurationByMonth(@PathVariable Integer lineId, @PathVariable Integer selectedMonth){
+        return clientsService.getDurationByMont(lineId, selectedMonth);
+    }
 }
+
 
 
 //ToDo DTO persona con líneas.

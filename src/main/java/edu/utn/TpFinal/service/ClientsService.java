@@ -2,6 +2,7 @@ package edu.utn.TpFinal.service;
 
 import edu.utn.TpFinal.Exceptions.UserNotExistException;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.ClientsRepository;
@@ -51,5 +52,9 @@ public class ClientsService{
     public FavouriteCall favouriteCall(Integer idLine){
         Lines line = linesRespository.findById(idLine).get();
         return clientsRepository.favouriteCall(idLine,line.getClient().getId(),line.getPhoneNumber());
+    }
+
+    public DurationByMonth getDurationByMont(Integer idLine, Integer selectedMonth){
+        return clientsRepository.getDurationByMont(idLine, selectedMonth);
     }
 }
