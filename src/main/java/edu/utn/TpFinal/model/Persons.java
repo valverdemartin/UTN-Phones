@@ -1,10 +1,14 @@
 package edu.utn.TpFinal.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Data
@@ -25,7 +29,7 @@ public abstract class Persons {
     private String lastName;
     @Column(name = "user_dni")
     @NotNull
-    private Long dni;
+    private Integer dni;
     @Column(name = "user_alias")
     @NotNull
     private String userName;

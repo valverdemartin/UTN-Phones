@@ -2,7 +2,8 @@ package edu.utn.TpFinal.model;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -33,9 +34,9 @@ public class Calls {
     private String destNumber;
     @Column(name = "duration")
     @NotNull
-    private Long duration;
+    private Integer duration;
     @Column(name = "total_price")
-    private double totalPrice;
+    private Double totalPrice;
     @Column(name = "call_date")
     @NotNull
     private Date callDate;

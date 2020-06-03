@@ -1,4 +1,5 @@
 package edu.utn.TpFinal.service;
+
 import edu.utn.TpFinal.Exceptions.BillNotExist;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.repository.BillsRepository;
@@ -6,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service

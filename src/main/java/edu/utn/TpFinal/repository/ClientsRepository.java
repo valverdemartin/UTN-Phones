@@ -1,13 +1,15 @@
 package edu.utn.TpFinal.repository;
 
-import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.DurationByMonth;
+import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.model.Clients;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,9 +31,16 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
 
     @Query(value = "SELECT SUM(duration) as sumDuration, u.user_name as name, u.user_last_name as lastname FROM calls " +
             "JOIN users as u " +
-            "on u.id = :idLine " +
+            "on u.id = :idUser " +
             "WHERE month(call_date) = :selectedMonth ;", nativeQuery = true)
-    DurationByMonth getDurationByMont(@Param("idLine") Integer idLine, @Param("selectedMonth") Integer selectedMonth);
+    DurationByMonth getDurationByMont(@Param("idUser") Integer idLine, @Param("selectedMonth") Integer selectedMonth);
 
 
+    @Query(value = "SELECT c.dest_number as destNumber,c.duration as duration, c.total_price as totalPrice, c.call_date as callDate " +
+            "FROM calls as c " +
+            "JOIN phone_lines as l " +
+            "ON l.id_client = :idClient " +
+            "WHERE c.total_price >= :totalPrice ;", nativeQuery = true)
+
+    List<CallsGraterThan> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
 }

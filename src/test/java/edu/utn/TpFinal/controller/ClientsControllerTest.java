@@ -1,19 +1,13 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Projections.FavouriteCall;
-import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.Lines;
-import edu.utn.TpFinal.model.Provinces;
 import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import java.text.ParseException;
+
 import static org.mockito.Mockito.*;
 
 
@@ -31,8 +25,9 @@ public class ClientsControllerTest {
     }
 
     @Test
-    public void addClientOk(){
-        Clients clientToAdd = new Clients();
+    public void addClientOk() throws ParseException {
+        Clients clientToAdd = Clients.builder().name("Martin").lastName("Valverde").dni(39137741).active(true).line(null)
+                .password("123").userName("tincho").build();
         doNothing().when(clientsService).addClient(clientToAdd);
         clientsController.addClient(clientToAdd);
         verify(clientsService, times(1)).addClient(clientToAdd);

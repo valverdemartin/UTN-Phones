@@ -1,18 +1,23 @@
 package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
-
+@SuperBuilder
 @Entity
 @DiscriminatorValue(value="Client")
 @Data
 @ToString
 @EqualsAndHashCode
+
 
 public class Clients extends Persons {
     @JsonBackReference
