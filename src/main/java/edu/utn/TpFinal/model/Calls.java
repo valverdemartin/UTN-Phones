@@ -61,6 +61,7 @@ public class Calls {
     public int hashCode() {
         return Objects.hash(id, originLine, destLine, duration, callDate);
     }
+
 }
 
 
