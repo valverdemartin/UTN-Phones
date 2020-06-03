@@ -4,6 +4,7 @@ import edu.utn.TpFinal.Exceptions.UserNotExistException;
 import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.UserCityLastCallDuration;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,12 @@ public class ClientsController {
     public ResponseEntity<List<CallsGraterThan>> getCallsGreaterThan(@PathVariable Integer clientId, @PathVariable Double price){
         List<CallsGraterThan> calls = clientsService.getCallsGreaterThan(clientId, price);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
+    }
+
+    @GetMapping("/parcial/{clientId}/")
+    public ResponseEntity<UserCityLastCallDuration> getLastCallDuration(@PathVariable Integer clientId){
+        UserCityLastCallDuration lastDurationCall = clientsService.getLastCallDuration(clientId);
+        return lastDurationCall == null ? ResponseEntity.status(204).build() : ResponseEntity.ok(lastDurationCall);
     }
 
 }

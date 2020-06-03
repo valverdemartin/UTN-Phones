@@ -3,6 +3,7 @@ package edu.utn.TpFinal.repository;
 import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.UserCityLastCallDuration;
 import edu.utn.TpFinal.model.Clients;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -43,4 +44,20 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
             "WHERE c.total_price >= :totalPrice ;", nativeQuery = true)
 
     List<CallsGraterThan> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
+
+    @Query(value = "Select u.user_name as name, u.user_last_name as lastname, ci.city_name as city, ca.duration as lastduration " +
+            "FROM phone_lines AS pl " +
+            "JOIN calls as ca " +
+            "on pl.id = ca.id_origin_line " +
+            "JOIN users as  u " +
+            "on u.id = pl.id_client " +
+            "JOIN cities as ci " +
+            "on pl.id_city = ci.id " +
+            "WHERE u.id = :idClient " +
+            "Order by ca.call_date ASC " +
+            "Limit 1;", nativeQuery = true)
+
+    UserCityLastCallDuration getLastCallDuration(@Param("idClient") Integer idClient);
+
+
 }

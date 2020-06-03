@@ -6,6 +6,7 @@ import edu.utn.TpFinal.Exceptions.UserNotExistException;
 import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.UserCityLastCallDuration;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.Lines;
@@ -74,4 +75,12 @@ public class ClientsService{
         }
         return clientsRepository.getCallsGreaterThan(clientId, price);
     }
+
+    public UserCityLastCallDuration getLastCallDuration(Integer clientId){
+        if(!clientsRepository.existsById(clientId)){
+            throw new UserNotExist(HttpStatus.BAD_REQUEST);
+        }
+        return clientsRepository.getLastCallDuration(clientId);
+    }
+
 }

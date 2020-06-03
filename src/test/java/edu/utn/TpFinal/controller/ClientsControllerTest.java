@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.UserCityLastCallDuration;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
@@ -39,6 +40,14 @@ public class ClientsControllerTest {
         when(clientsService.favouriteCall(idLine)).thenReturn(fv);
         clientsController.favouriteCall(idLine);
         verify(clientsService, times(1)).favouriteCall(idLine);
+    }
+
+    @Test public void lastCallDurationOk(){
+        Integer idLine = 1;
+        UserCityLastCallDuration lc = null;
+        when(clientsService.getLastCallDuration(idLine)).thenReturn(lc);
+        clientsController.getLastCallDuration(idLine);
+        verify(clientsService, times(1)).getLastCallDuration(idLine);
     }
 
     /*@Test

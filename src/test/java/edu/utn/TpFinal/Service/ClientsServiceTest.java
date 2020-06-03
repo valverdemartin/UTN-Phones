@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.Service;
 import edu.utn.TpFinal.Exceptions.UserNotExist;
 import edu.utn.TpFinal.Projections.DurationByMonth;
+import edu.utn.TpFinal.Projections.UserCityLastCallDuration;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import edu.utn.TpFinal.service.ClientsService;
@@ -41,5 +42,22 @@ public class ClientsServiceTest {
         when(clientsRepository.existsById(idUser)).thenReturn(false);
         clientsService.getDurationByMont(idUser,selectedMonth);
     }
+
+    @Test
+    public void LastCallDurtationOK() {
+        Integer idClient = 1;
+        UserCityLastCallDuration lc = null;
+        when(clientsRepository.existsById(idClient)).thenReturn(true);
+        when(clientsRepository.getLastCallDuration(idClient)).thenReturn(lc);
+        clientsRepository.existsById(idClient);
+        clientsRepository.getLastCallDuration(idClient);
+    }
+
+	@Test(expected = UserNotExist.class)
+    public void LastCallDurationFail() throws UserNotExist{
+        Integer idUser = 1;
+        when(clientsRepository.existsById(idUser)).thenReturn(false);
+        clientsService.getLastCallDuration(idUser);
+	}
 
 }
