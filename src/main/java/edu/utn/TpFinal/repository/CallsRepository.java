@@ -1,10 +1,9 @@
 package edu.utn.TpFinal.repository;
-import edu.utn.TpFinal.Projections.CallsGraterThan;
+
 import edu.utn.TpFinal.Projections.LastCall;
 import edu.utn.TpFinal.model.Calls;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

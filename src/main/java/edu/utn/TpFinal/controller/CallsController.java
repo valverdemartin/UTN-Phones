@@ -1,16 +1,13 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.LastCall;
 import edu.utn.TpFinal.model.Calls;
-import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.service.CallsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 @RestController

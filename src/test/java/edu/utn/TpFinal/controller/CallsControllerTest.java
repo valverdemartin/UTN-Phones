@@ -1,7 +1,6 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Projections.LastCall;
-import edu.utn.TpFinal.repository.CallsRepository;
 import edu.utn.TpFinal.service.CallsService;
 import org.junit.Assert;
 import org.junit.Before;
