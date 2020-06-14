@@ -1,9 +1,7 @@
 package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
@@ -17,6 +15,8 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 
 
 public class Clients extends Persons {

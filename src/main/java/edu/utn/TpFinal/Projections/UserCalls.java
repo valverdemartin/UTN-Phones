@@ -2,7 +2,7 @@ package edu.utn.TpFinal.Projections;
 
 import java.sql.Date;
 
-public interface CallsGraterThan {
+public interface UserCalls {
     String getDestNumber();
     Integer getDuration();
     Double getTotalPrice();
