@@ -1,6 +1,6 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.BillNotExist;
+import edu.utn.TpFinal.Exceptions.BillNotExists;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.repository.BillsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class BillsService {
     @Scheduled()//https://docs.oracle.com/cd/E19226-01/820-7627/giqlg/index.html
                 //https://www.baeldung.com/spring-email
     public void deleteBill(Integer id) {
-        Bills bill = billsRepository.findById(id).orElseThrow(() -> new BillNotExist(HttpStatus.BAD_REQUEST));//existByid()
+        Bills bill = billsRepository.findById(id).orElseThrow(() -> new BillNotExists(HttpStatus.BAD_REQUEST));//existByid()
         bill.setActive(Boolean.FALSE);
         billsRepository.save(bill);
     }

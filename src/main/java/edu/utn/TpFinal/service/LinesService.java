@@ -1,12 +1,8 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.BillNotExist;
-import edu.utn.TpFinal.Exceptions.ClientNotExist;
-import edu.utn.TpFinal.Exceptions.LineNotExist;
+import edu.utn.TpFinal.Exceptions.ClientNotExists;
+import edu.utn.TpFinal.Exceptions.LineNotExists;
 import edu.utn.TpFinal.Projections.UserLine;
-import edu.utn.TpFinal.model.Bills;
-import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
@@ -37,7 +33,7 @@ public class LinesService {
         return linesRespository.findAll();
     }
 
-    public Lines findById(Integer lineId){return linesRespository.findById(lineId).orElseThrow(() -> new LineNotExist(HttpStatus.BAD_REQUEST));}
+    public Lines findById(Integer lineId){return linesRespository.findById(lineId).orElseThrow(() -> new LineNotExists(HttpStatus.BAD_REQUEST));}
 
     public UserLine getLineByClient(Integer clientId, Integer lineId){
         verifyClientAndLine(clientId, lineId);
@@ -46,8 +42,8 @@ public class LinesService {
 
     public void verifyClientAndLine(Integer clientId, Integer lineId){//ToDo Revisar
         if(!clientsRepository.existsById(clientId))
-            throw  new ClientNotExist(HttpStatus.BAD_REQUEST);
+            throw  new ClientNotExists(HttpStatus.BAD_REQUEST);
         if(!linesRespository.existsById(lineId) || !linesRespository.existsByIdAndClient(lineId, clientsRepository.findById(clientId).get()))
-            throw new LineNotExist(HttpStatus.BAD_REQUEST);
+            throw new LineNotExists(HttpStatus.BAD_REQUEST);
     }
 }

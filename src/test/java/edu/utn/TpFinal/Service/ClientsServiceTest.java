@@ -1,12 +1,11 @@
 package edu.utn.TpFinal.Service;
-import edu.utn.TpFinal.Exceptions.UserNotExist;
+import edu.utn.TpFinal.Exceptions.UserNotExists;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpStatus;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -34,8 +33,8 @@ public class ClientsServiceTest {
         clientsService.getDurationByMont(idUser,selectedMonth);
     }
 
-    @Test(expected = UserNotExist.class)
-    public void DurationByMonthFail() throws UserNotExist{
+    @Test(expected = UserNotExists.class)
+    public void DurationByMonthFail() throws UserNotExists {
         Integer idUser = 1;
         Integer selectedMonth = 5;
         when(clientsRepository.existsById(idUser)).thenReturn(false);

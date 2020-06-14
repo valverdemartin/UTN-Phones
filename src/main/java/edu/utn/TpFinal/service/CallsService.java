@@ -1,12 +1,9 @@
 package edu.utn.TpFinal.service;
-import edu.utn.TpFinal.Exceptions.UserNotExist;
 import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
 import edu.utn.TpFinal.repository.CallsRepository;
-import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 

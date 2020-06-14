@@ -1,7 +1,7 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.UserNotExist;
-import edu.utn.TpFinal.Exceptions.UserNotExistException;
+import edu.utn.TpFinal.Exceptions.UserNotExists;
+import edu.utn.TpFinal.Exceptions.UserNotExistsException;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.Projections.UserCalls;
@@ -44,15 +44,15 @@ public class ClientsService{
         return clientsRepository.findByLastName(lastName).get();
     }///// agregar exception
 
-    public void putActive(Integer clientId) throws UserNotExistException {
-        Clients client = clientsRepository.findById(clientId).orElseThrow(UserNotExistException::new);
+    public void putActive(Integer clientId) throws UserNotExistsException {
+        Clients client = clientsRepository.findById(clientId).orElseThrow(UserNotExistsException::new);
         client.setActive(Boolean.TRUE);
         clientsRepository.save(client);
     }
 
     public List<UserCalls> getCallsGreaterThan(Integer clientId, Double price){
         if(!clientsRepository.existsById(clientId)){
-            throw new UserNotExist(HttpStatus.BAD_REQUEST);
+            throw new UserNotExists(HttpStatus.BAD_REQUEST);
         }
         return clientsRepository.getCallsGreaterThan(clientId, price);
     }
@@ -65,7 +65,7 @@ public class ClientsService{
 
     public DurationByMonth getDurationByMont(Integer idUser, Integer selectedMonth){
         if(!clientsRepository.existsById(idUser)){
-            throw new UserNotExist(HttpStatus.BAD_REQUEST);
+            throw new UserNotExists(HttpStatus.BAD_REQUEST);
         }
         return clientsRepository.getDurationByMont(idUser, selectedMonth);
     }

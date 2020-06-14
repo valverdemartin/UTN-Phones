@@ -1,6 +1,6 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Exceptions.UserNotExistException;
+import edu.utn.TpFinal.Exceptions.UserNotExistsException;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
@@ -45,7 +45,7 @@ public class ClientsController {
     }
 
     @PutMapping("/{clientId}/")
-    public void activeClient(@PathVariable Integer clientId) throws UserNotExistException {
+    public void activeClient(@PathVariable Integer clientId) throws UserNotExistsException {
         this.clientsService.putActive(clientId);
     }
 
