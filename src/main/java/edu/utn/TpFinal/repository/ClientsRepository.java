@@ -1,9 +1,10 @@
 package edu.utn.TpFinal.repository;
 
-import edu.utn.TpFinal.Projections.CallsGraterThan;
+import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.Lines;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -42,5 +43,7 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
             "ON l.id_client = :idClient " +
             "WHERE c.total_price >= :totalPrice ;", nativeQuery = true)
 
-    List<CallsGraterThan> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
+    List<UserCalls> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
+
+
 }

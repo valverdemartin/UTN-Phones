@@ -1,12 +1,15 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.BillNotExist;
+import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.service.BillsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -33,4 +36,10 @@ public class BillsController {
     public void deleteBillById(@PathVariable Integer id) {
         billsService.deleteBill(id);
     }
+
+    @GetMapping("/{clientId}/{lineId}/")
+    public ResponseEntity<List<UserCalls>> getUsersCalls(@PathVariable Integer clientId, @PathVariable Integer lineId, @RequestParam Date from, @RequestParam Date to){
+        List<UserCalls> calls = callsService.getUserCalls(clientId, lineId, from, to);
+        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
+    }//ToDo 			□ Consulta de llamadas Debe ser por rango de fecha de user logueado
 }

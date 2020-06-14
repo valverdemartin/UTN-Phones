@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Table( name= "cities")
-public class Cities {
+public class Cities{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

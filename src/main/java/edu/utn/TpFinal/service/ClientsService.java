@@ -1,23 +1,19 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.BillNotExist;
 import edu.utn.TpFinal.Exceptions.UserNotExist;
 import edu.utn.TpFinal.Exceptions.UserNotExistException;
-import edu.utn.TpFinal.Projections.CallsGraterThan;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
-import edu.utn.TpFinal.model.Bills;
+import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -48,14 +44,20 @@ public class ClientsService{
         return clientsRepository.findByLastName(lastName).get();
     }///// agregar exception
 
-
-
     public void putActive(Integer clientId) throws UserNotExistException {
         Clients client = clientsRepository.findById(clientId).orElseThrow(UserNotExistException::new);
         client.setActive(Boolean.TRUE);
         clientsRepository.save(client);
     }
 
+    public List<UserCalls> getCallsGreaterThan(Integer clientId, Double price){
+        if(!clientsRepository.existsById(clientId)){
+            throw new UserNotExist(HttpStatus.BAD_REQUEST);
+        }
+        return clientsRepository.getCallsGreaterThan(clientId, price);
+    }
+
+    /////////////////////////////Practica Examen////////////////////////////////
     public FavouriteCall favouriteCall(Integer idLine){
         Lines line = linesRespository.findById(idLine).get();
         return clientsRepository.favouriteCall(idLine,line.getClient().getId(),line.getPhoneNumber());
@@ -67,11 +69,5 @@ public class ClientsService{
         }
         return clientsRepository.getDurationByMont(idUser, selectedMonth);
     }
-
-    public List<CallsGraterThan> getCallsGreaterThan(Integer clientId, Double price){
-        if(!clientsRepository.existsById(clientId)){
-            throw new UserNotExist(HttpStatus.BAD_REQUEST);
-        }
-        return clientsRepository.getCallsGreaterThan(clientId, price);
-    }
+    ////////////////////////////////////////////////////////////////////////////
 }

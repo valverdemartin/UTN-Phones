@@ -1,7 +1,7 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.UserNotExistException;
-import edu.utn.TpFinal.Projections.CallsGraterThan;
+import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
 import edu.utn.TpFinal.model.Clients;
@@ -62,11 +62,18 @@ public class ClientsController {
         return dr.getSumDuration() == null ? ResponseEntity.status(204).build() : ResponseEntity.ok(dr);
     }
 
-    @GetMapping("/calls/{clientId}/{price}/")
-    public ResponseEntity<List<CallsGraterThan>> getCallsGreaterThan(@PathVariable Integer clientId, @PathVariable Double price){
-        List<CallsGraterThan> calls = clientsService.getCallsGreaterThan(clientId, price);
+    @GetMapping("/calls/{clientId}/")
+    public ResponseEntity<List<UserCalls>> getCallsGreaterThan(@PathVariable Integer clientId, @PathVariable Double price){
+        List<UserCalls> calls = clientsService.getCallsGreaterThan(clientId, price);
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
+
+
+
+    //ToDo 			□ Login user y Log out (borra session 1hs:6min 4/6)
+    //ToDo 			□ Consulta de facturas por rango de fecha de user logueado
+
+
 
 }
 
