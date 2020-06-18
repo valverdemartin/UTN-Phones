@@ -1,34 +1,69 @@
 package edu.utn.TpFinal.model;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
-@EqualsAndHashCode
+@Table(name = "calls")
+
 public class Calls {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rate")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rates rate;
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_origin_line")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Lines originLine;
-    @NotNull @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_dest_line")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Lines destLine;
+    @Column(name = "origin_number")
     @NotNull
-    private long duration;
+    private String originNumber;
+    @Column(name = "dest_number")
     @NotNull
-    private double totalPrice;
+    private String destNumber;
+    @Column(name = "duration")
     @NotNull
-    private Date callDate;
+    private Integer duration;
+    @Column(name = "total_price")
+    private Double totalPrice;
+    @Column(name = "call_date")
     @NotNull
-    private boolean invoiced;
+    private Timestamp callDate;
+    @JoinColumn(name = "id_bill")
     @ManyToOne(fetch = FetchType.EAGER)
     private Bills bill;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Calls)) return false;
+        Calls calls = (Calls) o;
+        return id.equals(calls.id) &&
+                originLine.equals(calls.originNumber) &&
+                callDate.equals(calls.callDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, originLine, destLine, duration, callDate);
+    }
 }
+
 

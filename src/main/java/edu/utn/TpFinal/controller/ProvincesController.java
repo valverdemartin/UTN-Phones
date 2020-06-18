@@ -19,7 +19,7 @@ public class ProvincesController{
         this.provinceService = provinceService;
     }
 
-    @GetMapping("/all/")
+    @GetMapping("/")
     public List<Provinces> getProvinces(){
         return provinceService.getProvinces();
     }

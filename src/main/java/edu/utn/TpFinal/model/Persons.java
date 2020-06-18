@@ -1,37 +1,42 @@
 package edu.utn.TpFinal.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @ToString
 @EqualsAndHashCode
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "p_type")
+@Table( name= "users")
+
 public abstract class Persons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "user_name")
     @NotNull
     private String name;
+    @Column(name = "user_last_name")
     @NotNull
     private String lastName;
+    @Column(name = "user_dni")
     @NotNull
-    private Long dni;
+    private Integer dni;
+    @Column(name = "user_alias")
     @NotNull
     private String userName;
+    @Column(name = "user_password")
     @NotNull
     private String password;
-    /*@NotNull
-    @ManyToOne
-    @JoinColumn(name="id")
-    private Cities city;
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="id")
-    private Provincies province;*/
+    @Column(name = "active")
+    private Boolean active;
 }
+
