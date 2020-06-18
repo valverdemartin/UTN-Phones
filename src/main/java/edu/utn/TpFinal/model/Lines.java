@@ -21,20 +21,30 @@ public class Lines {
     @Column(name = "line_number")
     @NotNull
     private String phoneNumber;
+
+    public enum Type {
+        MOBILE, RESIDENTIAL;
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "line_type")
     @NotNull
-    private String type; // Hacer Enum movil o residencial
+    private Type type;
     @JoinColumn(name = "id_city")
     @ManyToOne
-    @JsonBackReference
+    //@JsonBackReference
     @NotNull
     private Cities city;
     @JoinColumn(name = "id_client")
     @ManyToOne
     @JsonIdentityReference
-    //@JsonManagedReference
     private Clients client;
-    @Column(name = "active")
-    private Boolean active;
 
+    public enum Status {
+        ACTIVE, SUSPENDED, CANCELLED;
+    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    @NotNull
+    private Status status;
 }

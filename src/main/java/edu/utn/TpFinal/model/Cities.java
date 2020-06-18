@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,7 +32,11 @@ public class Cities{
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private Provinces province;
+    @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Lines> lines;
+    @NotNull
+    @Column(columnDefinition="BOOLEAN DEFAULT true")
+    private Boolean active;
 
 }

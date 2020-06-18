@@ -24,7 +24,7 @@ public class ClientsServiceTest {
     }
 
     @Test
-    public void DurationByMonthOk(){
+    public void DurationByMonthOk() throws UserNotExists {
         Integer idUser = 1;
         Integer selectedMonth = 5;
         DurationByMonth durationByMonth = null;

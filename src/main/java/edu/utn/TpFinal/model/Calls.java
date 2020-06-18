@@ -1,9 +1,14 @@
 package edu.utn.TpFinal.model;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
@@ -39,7 +44,7 @@ public class Calls {
     private Double totalPrice;
     @Column(name = "call_date")
     @NotNull
-    private Date callDate;
+    private Timestamp callDate;
     @JoinColumn(name = "id_bill")
     @ManyToOne(fetch = FetchType.EAGER)
     private Bills bill;
@@ -51,9 +56,7 @@ public class Calls {
         if (!(o instanceof Calls)) return false;
         Calls calls = (Calls) o;
         return id.equals(calls.id) &&
-                originLine.equals(calls.originLine) &&
-                destLine.equals(calls.destLine) &&
-                duration.equals(calls.duration) &&
+                originLine.equals(calls.originNumber) &&
                 callDate.equals(calls.callDate);
     }
 

@@ -1,10 +1,11 @@
 package edu.utn.TpFinal.repository;
 
-import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.Projections.DurationByMonth;
 import edu.utn.TpFinal.Projections.FavouriteCall;
+import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.Lines;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,9 +17,21 @@ import java.util.Optional;
 @Repository
 
 public interface ClientsRepository extends JpaRepository<Clients, Integer> {
-    Optional<Clients> findByLastName(String lastName);
-    /*@Query(value = "call sp_active_user (?1)", nativeQuery = true)
-    void activeUser(Integer clientId);*/
+
+    boolean existsByDni(Integer dni);
+
+    boolean existsByUserName(String userName);
+
+    boolean existsByIdNotAndDni(Integer id, Integer dni);
+
+    boolean existsByIdNotAndUserName(Integer id, String userName);
+
+    Optional<Clients> findByIdAndActiveTrue(Integer clientId);
+
+    Page<Clients> findByActiveTrue(Pageable pageable);
+
+
+    //////////////////////////////////Práctica examen///////////////////////////////////////////////////////////
     @Query(value = "SELECT u.user_name as name, u.user_last_name as lastname, dest_number as destline FROM calls " +
             "JOIN phone_lines as l " +
             "on l.id = :idLine " +
@@ -45,5 +58,5 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
 
     List<UserCalls> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
 
-
+    ///////////////////////////////////////////FIN///////////////////////////////////////////////////
 }

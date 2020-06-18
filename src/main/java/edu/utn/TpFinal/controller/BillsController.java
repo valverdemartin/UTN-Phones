@@ -1,15 +1,15 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Projections.UserCalls;
+import edu.utn.TpFinal.Exceptions.BillNotExists;
 import edu.utn.TpFinal.model.Bills;
 import edu.utn.TpFinal.service.BillsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.sql.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/bills")
@@ -22,18 +22,15 @@ public class BillsController {
     }
 
     @GetMapping("/")
-    public List<Bills> getBills(){
-        return billsService.getBills();
-    }
-
-    @PostMapping("/")
-    public void addBill(@RequestBody @Valid final Bills bill){
-        billsService.addBill(bill);
+    public ResponseEntity<Page<Bills>> getBills(@PageableDefault(page=0, size=5) Pageable pageable){
+        Page<Bills> bills = billsService.getBills(pageable);
+        return bills.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(bills);
     }
 
     @DeleteMapping("/{id}/")
-    public void deleteBillById(@PathVariable Integer id) {
+    public ResponseEntity deleteBillById(@PathVariable Integer id) throws BillNotExists {
         billsService.deleteBill(id);
+        return ResponseEntity.status(200).build();
     }
 
     /*@GetMapping("/{clientId}/{lineId}/")

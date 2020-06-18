@@ -20,6 +20,9 @@ public class Provinces {
     @Column(name = "province_name")
     @NotNull
     private String name;
+    @NotNull
+    @Column(columnDefinition="BOOLEAN DEFAULT true")
+    private Boolean active;
     ////////Province-City//////
     @OneToMany(mappedBy = "province")
     private List<Cities> cities;
