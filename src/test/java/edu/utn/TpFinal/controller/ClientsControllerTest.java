@@ -17,31 +17,31 @@ import static org.mockito.Mockito.*;
 public class ClientsControllerTest {
 
 
-    ClientsController clientsController;
-    ClientsService clientsService;
-
-    @Before
-    public void onSetUp(){
-        clientsService = mock(ClientsService.class);
-        clientsController = new ClientsController(clientsService);
-    }
-
-    @Test
-    public void addClientOk() throws ParseException, UserDniAlreadyExist, UserNameAlreadyExist {
-        Clients clientToAdd = Clients.builder().name("Martin").lastName("Valverde").dni(39137741).active(true).line(null)
-                .password("123").userName("tincho").build();
-        doNothing().when(clientsService).addClient(clientToAdd);
-        clientsController.addClient(clientToAdd);
-        verify(clientsService, times(1)).addClient(clientToAdd);
-    }
-
-    @Test public void favouriteCallok(){
-        Integer idLine = 1;
-        FavouriteCall fv = null;
-        when(clientsService.favouriteCall(idLine)).thenReturn(fv);
-        clientsController.favouriteCall(idLine);
-        verify(clientsService, times(1)).favouriteCall(idLine);
-    }
+//    ClientsController clientsController;
+//    ClientsService clientsService;
+//
+//    @Before
+//    public void onSetUp(){
+//        clientsService = mock(ClientsService.class);
+//        clientsController = new ClientsController(clientsService);
+//    }
+//
+//    @Test
+//    public void addClientOk() throws ParseException, UserDniAlreadyExist, UserNameAlreadyExist {
+//        Clients clientToAdd = Clients.builder().name("Martin").lastName("Valverde").dni(39137741).active(true).line(null)
+//                .password("123").userName("tincho").build();
+//        doNothing().when(clientsService).addClient(clientToAdd);
+//        clientsController.addClient(clientToAdd);
+//        verify(clientsService, times(1)).addClient(clientToAdd);
+//    }
+//
+//    @Test public void favouriteCallok(){
+//        Integer idLine = 1;
+//        FavouriteCall fv = null;
+//        when(clientsService.favouriteCall(idLine)).thenReturn(fv);
+//        clientsController.favouriteCall(idLine);
+//        verify(clientsService, times(1)).favouriteCall(idLine);
+//    }
 
     /*@Test
     public void testRemoveUserOk() throws UserNotexistException {

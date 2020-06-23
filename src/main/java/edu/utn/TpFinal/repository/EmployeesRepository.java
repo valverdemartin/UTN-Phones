@@ -15,4 +15,6 @@ public interface EmployeesRepository extends JpaRepository<Employees, Integer> {
     boolean existsByIdNotAndDni(Integer id, Integer dni);
 
     Optional<Employees>  findByIdAndActiveTrue(Integer employeeId);
+
+    Employees findByUserNameAndPassword(String username, String password);
 }

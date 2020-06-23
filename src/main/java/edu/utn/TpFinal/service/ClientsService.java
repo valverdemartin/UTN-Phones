@@ -106,7 +106,13 @@ public class ClientsService{
     }
 
 
+
     ////////////////////////////////////////////////////////////////////////////
+
+    public Clients login(String username, String password) throws UserNotExists {
+        Clients user = clientsRepository.findByUserNameAndPassword(username, password);
+        return user;
+    }
 }
 
 

@@ -38,5 +38,12 @@ public abstract class Persons {
     private String password;
     @Column(name = "active")
     private Boolean active;
+//    public enum Type{
+//        CLIENT, EMPLOYEE
+//    }
+//    @Column(name = "p_type", insertable = false, updatable = false)
+//    private Type dType;
+
+    //ToDo consultar a germán.
 }
 

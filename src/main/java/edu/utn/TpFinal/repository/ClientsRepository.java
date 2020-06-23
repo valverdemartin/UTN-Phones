@@ -58,5 +58,7 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
 
     List<UserCalls> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
 
+    Clients findByUserNameAndPassword(String username, String password);
+
     ///////////////////////////////////////////FIN///////////////////////////////////////////////////
 }
