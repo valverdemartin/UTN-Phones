@@ -6,6 +6,7 @@ import edu.utn.TpFinal.Exceptions.LineNotExists;
 import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
+import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.CallsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,6 @@ public class CallsService {
     }
 
     public Calls addCall(final Calls call) throws CallAlreadyExists, LineNotExists {
-        //callsRepository.existsByOriginNumberAndCallDate(call.getOriginNumber(), call.getCallDate()).orElseThrow(()-> new CallAlreadyExists());
         if(callsRepository.existsByOriginNumberAndCallDate(call.getOriginNumber(), call.getCallDate()))
             throw new CallAlreadyExists();
         if(!linesService.existsByLineNumber(call.getOriginNumber()))
@@ -43,7 +43,13 @@ public class CallsService {
 
     public Page<UserCalls> getUserCalls(Pageable pageable, Integer clientId, Integer lineId, Timestamp from, Timestamp to) throws LineNotExists, ClientNotExists {
         linesService.verifyClientAndLine(clientId, lineId);
-        return callsRepository.getCallsByUser(pageable,lineId, from, to);
+        Lines line = linesService.findById(lineId);
+        Page<UserCalls> p;
+        if(from == null || to == null)
+            p = callsRepository.findByOriginLine(pageable, line);
+        else
+            p = callsRepository.findByCallDateBetweenAndOriginLine(pageable, from, to, line);
+        return p;
     }
 
     public List<TopCalls> findTop10Calls(Integer idClient, Integer idLine) throws LineNotExists, ClientNotExists {

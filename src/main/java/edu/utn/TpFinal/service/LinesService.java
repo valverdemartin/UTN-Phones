@@ -49,18 +49,29 @@ public class LinesService {
         return linesRespository.findByIDAndByClient(lineId,clientId);
     }
 
-    public Lines updateLine(Lines line, Integer clientId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, UserNotExists {
-        verifyClientAndLine(clientId, line.getId());
-        Clients client = clientsRepository.findById(clientId).orElseThrow(()-> new UserNotExists());
-        if(linesRespository.existsByPhoneNumberAndClient_idNot(line.getPhoneNumber(),clientId))//revisar
+    public Lines updateLine(Lines line, Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
+        verifyClientAndLine(clientId, lineId);
+        Clients client = clientsRepository.findById(clientId).get();
+        line.setId(lineId);
+        line.setClient(client);
+        if(linesRespository.existsByPhoneNumberAndClientNot(line.getPhoneNumber(),client))//revisar
             throw new InvalidPhoneNumber();
         verifyCityPrefixAndPhoneNumber(line.getCity().getId(), line.getPhoneNumber());//ver prefix
+        if(line.getStatus().equals(Lines.Status.CANCELLED))
+            throw new DeletionNotAllowed();
         verifyStatusAndType(line.getStatus(), line.getType());
         return linesRespository.save(line);
     }
 
+    public Lines deleteLine(Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists {
+        verifyClientAndLine(clientId, lineId);
+        Lines line = findById(lineId);
+        line.setStatus(Lines.Status.CANCELLED);
+        return linesRespository.save(line);
+    }
+
     /////////////////////////////////Validations//////////////////////////////////////////////////
-    public void verifyClientAndLine(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {//ToDo Revisar
+    public void verifyClientAndLine(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {
         clientsService.getClientsById(clientId);
         if(!linesRespository.existsByIdAndClient(lineId, clientsRepository.findById(clientId).get()))
             throw new LineNotExists();

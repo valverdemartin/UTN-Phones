@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/backoffice")
+@RequestMapping("/lines")
 public class LinesController {
     private LinesService linesService;
 
@@ -41,15 +41,15 @@ public class LinesController {
         return line == null ? ResponseEntity.status(404).build() :ResponseEntity.ok(line);
     }
 
-    @PutMapping("/{clientId}/")
-    public ResponseEntity<Lines> updateLine(@RequestBody @Valid final Lines line, @PathVariable Integer clientId) throws LineNotExists, InvalidStatus, ClientNotExists, InvalidType, InvalidPrefix, InvalidPhoneNumber, CityNotExists, UserNotExists {
-        return ResponseEntity.ok(linesService.updateLine(line, clientId));
+    @PutMapping("/{clientId}/{lineId}/")
+    public ResponseEntity<Lines> updateLine(@RequestBody @Valid final Lines line, @PathVariable Integer clientId, @PathVariable Integer lineId) throws LineNotExists, InvalidStatus, ClientNotExists, InvalidType, InvalidPrefix, InvalidPhoneNumber, CityNotExists, DeletionNotAllowed {
+        return ResponseEntity.ok(linesService.updateLine(line, clientId, lineId));
     }
 
-    /*@DeleteMapping("/{employeeId}/")
-    public ResponseEntity<Employees> deleteEmployee(@PathVariable @Valid final Integer employeeId) throws UserNotExists, UserAlreadyDeleted, UserAlreadyActive{
-        return ResponseEntity.ok(employeesService.deleteEmployee(employeeId));
-    }*/
+    @DeleteMapping("/{clientId}/{lineId}/")
+    public ResponseEntity<Lines> deleteLine(@PathVariable Integer clientId, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
+        return ResponseEntity.ok(linesService.deleteLine(clientId, lineId));
+    }
 }
 
 

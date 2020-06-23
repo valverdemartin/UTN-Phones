@@ -7,11 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CitiesRepository extends JpaRepository<Cities, Integer> {
 
-    Page<Cities> findByActive(Pageable pageable, Boolean active);
+    Page<Cities> findByActiveTrue(Pageable pageable);
 
     boolean existsByPrefix(Integer prefix);
 
     boolean existsByName(String name);
 
     boolean existsByShortName(String shortName);
+
+    boolean existsByIdNotAndName(Integer idCity, String name);
+
+    boolean existsByShortNameAndIdNot(String shortName, Integer idCity);
+
+    boolean existsByPrefixAndIdNot(Integer prefix, Integer idCity);
 }

@@ -24,5 +24,5 @@ public interface LinesRespository extends JpaRepository<Lines, Integer> {
 
     Page<Lines> findByStatus(Pageable pageable, Lines.Status active);
 
-    boolean existsByPhoneNumberAndClient_idNot(String phoneNumber, Integer id);
+    boolean existsByPhoneNumberAndClientNot(String phoneNumber, Clients client);
 }

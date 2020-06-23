@@ -44,8 +44,8 @@ public class ClientsController {
         return ResponseEntity.ok(clientsService.addClient(client));
     }
 
-    @PutMapping("/{active}/")
-    public ResponseEntity<Clients> updateClient(@RequestBody @Valid final Clients client, @PathVariable boolean active) throws UserNotExists, UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed {
+    @PutMapping("/")
+    public ResponseEntity<Clients> updateClient(@RequestBody @Valid final Clients client, @RequestParam(value="active", required = false) boolean active) throws UserNotExists, UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed {
         return ResponseEntity.ok(clientsService.updateClient(client, active));
     }
 
