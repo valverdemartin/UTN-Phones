@@ -18,5 +18,4 @@ public class SessionScheduler {
     public void expiresSessions() {
         sessionManager.expireSessions();
     }
-
 }

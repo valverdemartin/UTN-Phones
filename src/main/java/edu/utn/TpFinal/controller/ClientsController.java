@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 
 @RestController
-//@RequestMapping("/client")
+@RequestMapping("/client")
 public class ClientsController {
 
     private final ClientsService clientsService;
