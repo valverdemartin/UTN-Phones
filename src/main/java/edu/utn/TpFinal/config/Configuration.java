@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @PropertySource("application.yml")
 @EnableScheduling
 @EnableCaching
-public class Configuration {
+public class  Configuration {
 
     @Autowired
     SessionFilter sessionFilter;
