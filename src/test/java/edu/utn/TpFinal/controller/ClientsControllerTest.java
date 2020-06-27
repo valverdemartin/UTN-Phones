@@ -32,5 +32,20 @@ public class ClientsControllerTest {
         verify(clientsService, times(1)).addClient(clientToAdd);
     }
 
+    /*@Test public void favouriteCallok(){
+        Integer idLine = 1;
+        FavouriteCall fv = null;
+        when(clientsService.favouriteCall(idLine)).thenReturn(fv);
+        clientsController.favouriteCall(idLine);
+        verify(clientsService, times(1)).favouriteCall(idLine);
+    }*/
+
+    /*@Test
+    public void testRemoveUserOk() throws UserNotexistException {
+        User userToRemove = new User(1, "Nombre", "username", "", "Surname", null);
+        doNothing().when(service).removeUser(userToRemove);
+        userController.removeUser(userToRemove);
+        verify(service, times(1)).removeUser(userToRemove);
+    }*/
 
 }

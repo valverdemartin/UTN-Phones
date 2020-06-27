@@ -40,8 +40,8 @@ public class EmployeesController {
         employeesService.addEmployee(employee);
     }
 
-    @PutMapping("/{active}/")
-    public ResponseEntity<Employees> updateEmployee(@RequestBody @Valid final Employees employee, @PathVariable boolean active) throws UserNotExists, UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed {
+    @PutMapping("/")
+    public ResponseEntity<Employees> updateEmployee(@RequestBody @Valid final Employees employee, @RequestParam(value="active", required = false) boolean active) throws UserNotExists, UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed {
         return ResponseEntity.ok(employeesService.updateEmployee(employee, active));
     }
 

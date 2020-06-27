@@ -41,12 +41,12 @@ public class CallsController {
     //ToDo verificar UTC
 
     @GetMapping("/{clientId}/{lineId}/")
-    public ResponseEntity<Page<UserCalls>> getUsersCalls(@PageableDefault(page=0, size=5) Pageable pageable,
+    public ResponseEntity <Page<UserCalls>> getUsersCalls(@PageableDefault(page=0, size=5) Pageable pageable,
                                                          @PathVariable Integer clientId, @PathVariable Integer lineId,
-                                                         @RequestParam Timestamp from, @RequestParam Timestamp to)
+                                                         @RequestParam(required = false) Timestamp from,
+                                                         @RequestParam(required = false)  Timestamp to)
                                                             throws LineNotExists, ClientNotExists {
         Page<UserCalls> calls = callsService.getUserCalls(pageable, clientId, lineId, from, to);
-        System.out.println(calls.getTotalPages());
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }//ToDo 			□ Consulta de llamadas Debe ser por rango de fecha de user logueado
 

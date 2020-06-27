@@ -4,6 +4,7 @@ import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.CitiesRepository;
 import edu.utn.TpFinal.repository.ClientsRepository;
@@ -49,20 +50,43 @@ public class LinesService {
         return linesRespository.findByIDAndByClient(lineId,clientId);
     }
 
-    public Lines updateLine(Lines line, Integer clientId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, UserNotExists {
-        verifyClientAndLine(clientId, line.getId());
-        Clients client = clientsRepository.findById(clientId).orElseThrow(()-> new UserNotExists());
-        if(linesRespository.existsByPhoneNumberAndClient_idNot(line.getPhoneNumber(),clientId))//revisar
-            throw new InvalidPhoneNumber();
-        verifyCityPrefixAndPhoneNumber(line.getCity().getId(), line.getPhoneNumber());//ver prefix
-        verifyStatusAndType(line.getStatus(), line.getType());
+    public Lines updateLine(LineDTO newLine, Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
+        verifyClientAndLine(clientId, lineId);
+        Lines oldLine = this.linesRespository.findById(lineId).get();
+        Clients client = clientsRepository.findById(clientId).get();
+        verifyUpdateData(newLine, client);
+        verifyStatusAndType(newLine.getStatus(), newLine.getType());
+        oldLine = this.setUpdate(newLine, oldLine);
+        return linesRespository.save(oldLine);
+    }
+
+    public Lines deleteLine(Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists {
+        verifyClientAndLine(clientId, lineId);
+        Lines line = findById(lineId);
+        line.setStatus(Lines.Status.CANCELLED);
         return linesRespository.save(line);
     }
 
+    public Lines setUpdate(LineDTO newLine, Lines oldLine){
+        oldLine.setStatus(newLine.getStatus());
+        oldLine.setCity(newLine.getCity());
+        oldLine.setPhoneNumber(newLine.getPhoneNumber());
+        oldLine.setType(newLine.getType());
+        return oldLine;
+    }
+
     /////////////////////////////////Validations//////////////////////////////////////////////////
-    public void verifyClientAndLine(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {//ToDo Revisar
-        clientsService.getClientsById(clientId);
-        if(!linesRespository.existsByIdAndClient(lineId, clientsRepository.findById(clientId).get()))
+
+    public void verifyUpdateData(LineDTO newLine, Clients client) throws InvalidPhoneNumber, CityNotExists, InvalidPrefix, DeletionNotAllowed {
+        if(linesRespository.existsByPhoneNumberAndClientNot(newLine.getPhoneNumber(),client))//revisar
+            throw new InvalidPhoneNumber();
+        verifyCityPrefixAndPhoneNumber(newLine.getCity().getId(), newLine.getPhoneNumber());//ver prefix
+        if(newLine.getStatus().equals(Lines.Status.CANCELLED))
+            throw new DeletionNotAllowed();
+    }
+    public void verifyClientAndLine(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {
+        Clients c = clientsRepository.findById(clientId).orElseThrow(()-> new ClientNotExists());
+        if(!linesRespository.existsByIdAndClient(lineId, c))
             throw new LineNotExists();
     }
 

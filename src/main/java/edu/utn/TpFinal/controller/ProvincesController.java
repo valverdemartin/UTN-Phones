@@ -1,8 +1,14 @@
 package edu.utn.TpFinal.controller;
 
+import edu.utn.TpFinal.Exceptions.*;
+import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Provinces;
 import edu.utn.TpFinal.service.ProvincesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,12 +26,32 @@ public class ProvincesController{
     }
 
     @GetMapping("/")
-    public List<Provinces> getProvinces(){
-        return provinceService.getProvinces();
+    public ResponseEntity<Page<Provinces>> getProvinces(@PageableDefault(page=0, size=5) Pageable pageable){
+        Page<Provinces> provinces = provinceService.getProvinces(pageable);
+        return provinces.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(provinces);
+    }
+
+    @GetMapping("/{id}/")
+    public ResponseEntity<Provinces> getProvinceById(@PathVariable Integer id) throws ProvinceNotExist {
+        return ResponseEntity.ok(provinceService.getProvincesById(id));
     }
 
     @PostMapping("/")
-    public void addProvince(@RequestBody @Valid final Provinces province){
-        provinceService.addProvince(province);
+    public ResponseEntity addProvince(@RequestBody @Valid final Provinces province) throws ProvinceNameAlreadyExists {
+        return ResponseEntity.ok(provinceService.addProvince(province));
     }
+
+    @PutMapping("/{id}/")
+    public ResponseEntity updateProvince(@RequestBody @Valid final Provinces province, @PathVariable Integer id, @RequestParam(value="active", required = false) Boolean active) throws ProvinceNameAlreadyExists, ProvinceAlreadyActive, DeletionNotAllowed, ProvinceAlreadyDeleted, ProvinceNotExist {
+        return ResponseEntity.ok(provinceService.updateProvinces(province, id, active));
+    }
+
+    @DeleteMapping("/{id}/")
+    public ResponseEntity deleteProvinceById(@PathVariable Integer id) throws ProvinceNotExist, ProvinceAlreadyDeleted, ProvinceIsNotEmpty, ProvinceNameAlreadyExists {
+        provinceService.deleteProvince(id);
+        return ResponseEntity.status(200).build();
+    }
+
+
+
 }

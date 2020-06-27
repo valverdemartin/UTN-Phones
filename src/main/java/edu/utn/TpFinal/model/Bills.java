@@ -2,7 +2,8 @@ package edu.utn.TpFinal.model;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
