@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 @Controller
+@RestController
+@RequestMapping("/client")
 public class ClientsController {
 
     private final ClientsService clientsService;
@@ -19,6 +23,19 @@ public class ClientsController {
         this.clientsService = clientsService;
     }
 
+    public Clients login(String username, String password) throws UserNotExists, ValidationException {
+        if ((username != null) && (password != null)) {
+            return clientsService.login(username, password);
+        } else {
+            throw new ValidationException("username and password must have a value");
+        }
+    }
+
+    @GetMapping("/{clientId}/")
+    public ResponseEntity<Clients> getClientsById(@PathVariable Integer clientId) throws ClientNotExists {
+        Clients client = clientsService.getClientsById(clientId);
+        return ResponseEntity.ok(client);
+    }
 
     public Clients getClientById(Integer clientId) throws ClientNotExists {
         return clientsService.getClientsById(clientId);
@@ -34,7 +51,6 @@ public class ClientsController {
         return clientsService.addClient(client);
     }
 
-
     public Clients updateClient(ClientUpdateDTO client, Integer idClient, boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
         return clientsService.updateClient(client, idClient, active);
     }
@@ -44,12 +60,9 @@ public class ClientsController {
         return clientsService.deleteClients(clientId);
     }
 
-
     //ToDo 			□ Login user y Log out (borra session 1hs:6min 4/6)
     //ToDo 			□ Consulta de facturas por rango de fecha de user logueado
     //ToDo DTO persona con líneas.
-
-
 }
 
 

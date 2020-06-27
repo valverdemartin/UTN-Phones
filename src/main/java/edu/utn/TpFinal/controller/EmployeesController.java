@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import javax.validation.ValidationException;
 
 
 @RestController
@@ -48,5 +48,13 @@ public class EmployeesController {
     @DeleteMapping("/{employeeId}/")
     public ResponseEntity<Employees> deleteEmployee(@PathVariable @Valid final Integer employeeId) throws UserNotExists, UserAlreadyDeleted, UserAlreadyActive{
         return ResponseEntity.ok(employeesService.deleteEmployee(employeeId));
+    }
+
+    public Employees login(String username, String password) throws ValidationException {
+        if ((username != null) && (password != null)) {
+            return employeesService.login(username, password);
+        } else {
+            throw new ValidationException("username and password must have a value");
+        }
     }
 }

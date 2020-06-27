@@ -1,8 +1,8 @@
 package edu.utn.TpFinal.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

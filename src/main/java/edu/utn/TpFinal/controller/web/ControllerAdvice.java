@@ -15,11 +15,6 @@ import java.text.ParseException;
 @RestControllerAdvice
 public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
-    /*@ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(InvalidLoginException.class)
-    public ErrorResponseDto handleLoginException(InvalidLoginException exc) {
-        return new ErrorResponseDto(1, "Invalid login");
-    }*/
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)
@@ -194,4 +189,11 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
     public ErrorResponseDto handleBillNotExists(){
         return new ErrorResponseDto(30, "Bill Not Exists");
     }
+  
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidLoginException.class)
+    public ErrorResponseDto handleLoginException() {
+        return new ErrorResponseDto(22, "Invalid login");
+    }
+
 }

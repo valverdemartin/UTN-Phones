@@ -30,4 +30,6 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
 
     Page<Clients> findByActiveTrue(Pageable pageable);
 
+    Clients findByUserNameAndPassword(String username, String password);
+
 }
