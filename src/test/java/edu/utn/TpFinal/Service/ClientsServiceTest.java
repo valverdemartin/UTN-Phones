@@ -23,7 +23,7 @@ public class ClientsServiceTest {
         clientsService = new ClientsService(clientsRepository, linesRespository);
     }
 
-    @Test
+    /*@Test
     public void DurationByMonthOk() throws UserNotExists {
         Integer idUser = 1;
         Integer selectedMonth = 5;
@@ -39,6 +39,6 @@ public class ClientsServiceTest {
         Integer selectedMonth = 5;
         when(clientsRepository.existsById(idUser)).thenReturn(false);
         clientsService.getDurationByMont(idUser,selectedMonth);
-    }
+    }*/
 
 }
