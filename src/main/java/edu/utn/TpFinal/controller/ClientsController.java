@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import javax.validation.Valid;
 import javax.validation.ValidationException;
 
 @Controller
-@RestController
-@RequestMapping("/client")
 public class ClientsController {
 
     private final ClientsService clientsService;
@@ -29,12 +26,6 @@ public class ClientsController {
         } else {
             throw new ValidationException("username and password must have a value");
         }
-    }
-
-    @GetMapping("/{clientId}/")
-    public ResponseEntity<Clients> getClientsById(@PathVariable Integer clientId) throws ClientNotExists {
-        Clients client = clientsService.getClientsById(clientId);
-        return ResponseEntity.ok(client);
     }
 
     public Clients getClientById(Integer clientId) throws ClientNotExists {
