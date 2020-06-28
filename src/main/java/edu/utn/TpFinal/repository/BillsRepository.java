@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public interface BillsRepository extends JpaRepository <Bills, Integer>{
     Page<Bills> findByActiveTrue(Pageable pageable);
 
-    Page<UserBills> findByBillDateBetweenAndLine(Pageable pageable, Date from, Date to, Lines line);
+    Page<UserBills> findByBillDateBetweenAndLine(Pageable pageable, Timestamp from, Timestamp to, Lines line);
 
     boolean existsByIdAndLine(Integer billId, Lines byId);
 

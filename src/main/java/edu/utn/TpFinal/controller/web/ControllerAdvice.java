@@ -196,4 +196,10 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(22, "Invalid login");
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(LineAlreadyDeleted.class)
+    public ErrorResponseDto handleLineAlreadyDeleted() {
+        return new ErrorResponseDto(22, "Line Already Deleted");
+    }
+
 }

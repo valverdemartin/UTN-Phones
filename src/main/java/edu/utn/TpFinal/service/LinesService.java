@@ -5,9 +5,11 @@ import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.LineDTO;
+import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.CitiesRepository;
 import edu.utn.TpFinal.repository.ClientsRepository;
+import edu.utn.TpFinal.repository.EmployeesRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,16 +26,19 @@ public class LinesService {
     private ClientsRepository clientsRepository;
     private CitiesRepository citiesRepository;
     private ClientsService clientsService;
+    private EmployeesRepository employeeRepository;
 
     @Autowired
-    public LinesService(LinesRespository linesRespository, ClientsService clientsService, CitiesRepository citiesRepository, ClientsRepository clientsRepository) {
+    public LinesService(LinesRespository linesRespository, ClientsService clientsService, CitiesRepository citiesRepository, ClientsRepository clientsRepository, EmployeesRepository employeeRepository) {
         this.linesRespository = linesRespository;
         this.clientsService = clientsService;
         this.citiesRepository = citiesRepository;
         this.clientsRepository = clientsRepository;
+        this.employeeRepository = employeeRepository;
     }
 
-    public Lines addLine(final Lines line) throws ClientNotExists, InvalidType, InvalidPrefix, InvalidStatus, CityNotExists, InvalidPhoneNumber {
+    public Lines addLine(final Lines line, Integer clientId) throws ClientNotExists, InvalidType, InvalidPrefix, InvalidStatus, CityNotExists, InvalidPhoneNumber {
+        line.setClient(clientsRepository.findById(clientId).orElseThrow(()-> new ClientNotExists()));
         verifyLine(line);
         return linesRespository.save(line);
     }
@@ -50,19 +55,21 @@ public class LinesService {
         return linesRespository.findByIDAndByClient(lineId,clientId);
     }
 
-    public Lines updateLine(LineDTO newLine, Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
-        verifyClientAndLine(clientId, lineId);
-        Lines oldLine = this.linesRespository.findById(lineId).get();
-        Clients client = clientsRepository.findById(clientId).get();
-        verifyUpdateData(newLine, client);
+    public Lines updateLine(LineDTO newLine, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
+        //verifyClientAndLine(clientId, lineId);
+        Lines oldLine = this.linesRespository.findById(lineId).orElseThrow(()->new LineNotExists());
+        //Clients client = clientsRepository.findById(clientId).get();
+        verifyUpdateData(newLine, oldLine.getClient());
         verifyStatusAndType(newLine.getStatus(), newLine.getType());
         oldLine = this.setUpdate(newLine, oldLine);
         return linesRespository.save(oldLine);
     }
 
-    public Lines deleteLine(Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists {
-        verifyClientAndLine(clientId, lineId);
+    public Lines deleteLine(Integer lineId) throws LineNotExists, ClientNotExists, LineAlreadyDeleted {
+        //verifyClientAndLine(clientId, lineId);
         Lines line = findById(lineId);
+        if(line.getStatus().equals(Lines.Status.CANCELLED))
+            throw new LineAlreadyDeleted();
         line.setStatus(Lines.Status.CANCELLED);
         return linesRespository.save(line);
     }

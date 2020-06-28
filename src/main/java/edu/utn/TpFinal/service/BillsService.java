@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Service
 
@@ -36,7 +37,7 @@ public class BillsService {
         billsRepository.save(bill);
     }
 
-    public Page<UserBills> getUserBills(Pageable pageable, Integer clientId, Integer lineId, Date from, Date to) throws BillNotExists, LineNotExists, ClientNotExists {
+    public Page<UserBills> getUserBills(Pageable pageable, Integer clientId, Integer lineId, Timestamp from, Timestamp to) throws BillNotExists, LineNotExists, ClientNotExists {
         linesService.verifyClientAndLine(clientId, lineId);
         Lines line = linesService.findById(lineId);
         Page<UserBills> b;

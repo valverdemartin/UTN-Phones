@@ -9,6 +9,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @org.springframework.context.annotation.Configuration
 @PropertySource("application.yml")
@@ -33,7 +36,7 @@ public class  Configuration {
     public FilterRegistrationBean backofficeFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(backOfficeSessionFilter);
-        registration.addUrlPatterns("/employee/*");
+        registration.addUrlPatterns("/backoffice/*");
         return registration;
     }
 
@@ -41,8 +44,18 @@ public class  Configuration {
     public FilterRegistrationBean userFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(sessionFilter);
-        registration.addUrlPatterns("/client/*");
+        registration.addUrlPatterns("/userController/*");
         return registration;
+    }
+
+    public static class UriGenerator {
+        public static URI getLocation(Integer id){
+            return ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(id)
+                    .toUri();
+        }
     }
 }
 

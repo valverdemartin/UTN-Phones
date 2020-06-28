@@ -6,6 +6,7 @@ import edu.utn.TpFinal.Exceptions.LineNotExists;
 import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
+import edu.utn.TpFinal.model.DTO.CallsDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.CallsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,17 @@ public class CallsService {
         this.linesService = linesService;
     }
 
-    public Calls addCall(final Calls call) throws CallAlreadyExists, LineNotExists {
+    public Calls addCall(final CallsDTO call) throws CallAlreadyExists, LineNotExists {
         if(callsRepository.existsByOriginNumberAndCallDate(call.getOriginNumber(), call.getCallDate()))
             throw new CallAlreadyExists();
         if(!linesService.existsByLineNumber(call.getOriginNumber()))
             throw new LineNotExists();
-        return callsRepository.save(call);
+        Calls c = new Calls();
+        return callsRepository.save(c.builder()
+                .originNumber(call.getOriginNumber())
+                .destNumber(call.getDestNumber())
+                .duration(call.getDuration())
+                .callDate(call.getCallDate()).build());
     }
 
     public Page<Calls> getCalls(Pageable pageable){

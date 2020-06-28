@@ -2,10 +2,12 @@ package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@SuperBuilder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

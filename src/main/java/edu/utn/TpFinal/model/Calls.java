@@ -1,17 +1,13 @@
 package edu.utn.TpFinal.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
