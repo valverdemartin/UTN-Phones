@@ -4,7 +4,7 @@ import edu.utn.TpFinal.Exceptions.InvalidLoginException;
 import edu.utn.TpFinal.Exceptions.UserNotExists;
 import edu.utn.TpFinal.controller.ClientsController;
 import edu.utn.TpFinal.controller.EmployeesController;
-import edu.utn.TpFinal.dto.LoginRequestDto;
+import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.model.UserLogin;

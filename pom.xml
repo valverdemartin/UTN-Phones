@@ -104,6 +104,8 @@
 						<exclude>**/Exceptions/**</exclude>
 						<exclude>**/projections/**</exclude>
 						<exclude>**/controller/web/ControllerAdvice**</exclude>
+						<exclude>**/controller/Provinces**</exclude>
+						<exclude>**/controller/Cities**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

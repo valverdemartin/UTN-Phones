@@ -8,4 +8,9 @@ public interface UserCalls {
     Integer getDuration();
     Double getTotalPrice();
     Timestamp getCallDate();
+
+    void setDestNumber(String destNumb);
+    void setDuration(Integer duration);
+    void setTotalPrice(Double price);
+    void setCallDate(Timestamp date);
 }

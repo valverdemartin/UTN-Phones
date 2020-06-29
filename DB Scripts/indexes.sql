@@ -19,10 +19,14 @@ create index idx_calls_by_date on calls(call_date) using btree;
 
 create index idx_calls_line on calls(id_origin_line) using hash;
 
+create index idx_top10_calls on calls (id_origin_line, dest_number) using hash;
+
 create index idx_bill_by_date on bills(bill_date) using btree;
 
 create index idx_bill_client on bills (id_line) using hash;
 
 drop index idx_calls_by_date on calls;
 drop index idx_calls_line on calls;
+drop index idx_top10_calls on calls;
+
 

@@ -42,10 +42,6 @@ public class CallsService {
                 .callDate(call.getCallDate()).build());
     }
 
-    public Page<Calls> getCalls(Pageable pageable){
-        return callsRepository.findAll(pageable);
-    }
-
     public Page<UserCalls> getUserCalls(Pageable pageable, Integer clientId, Integer lineId, Timestamp from, Timestamp to) throws LineNotExists, ClientNotExists {
         linesService.verifyClientAndLine(clientId, lineId);
         Lines line = linesService.findById(lineId);

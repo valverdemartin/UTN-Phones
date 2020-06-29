@@ -12,9 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -26,13 +24,6 @@ public class CallsController {
     public CallsController(CallsService CallsService) {
         this.callsService = CallsService;
     }
-
-
-    public ResponseEntity<Page<Calls>> getCalls(@PageableDefault(page=0, size=5) Pageable pageable) {
-        Page<Calls> calls = callsService.getCalls(pageable);
-        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
-    }
-
 
     public Calls addCall(CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber, RateNotExists {
         return callsService.addCall(call);
