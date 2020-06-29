@@ -1,4 +1,4 @@
-package edu.utn.TpFinal.dto;
+package edu.utn.TpFinal.model.DTO;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

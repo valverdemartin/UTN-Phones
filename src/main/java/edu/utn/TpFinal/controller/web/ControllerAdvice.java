@@ -2,7 +2,7 @@ package edu.utn.TpFinal.controller.web;
 
 
 import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.dto.ErrorResponseDto;
+import edu.utn.TpFinal.model.DTO.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ValidationException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
