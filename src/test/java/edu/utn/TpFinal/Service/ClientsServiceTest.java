@@ -1,14 +1,11 @@
 package edu.utn.TpFinal.Service;
-import edu.utn.TpFinal.Exceptions.UserNotExists;
-import edu.utn.TpFinal.Projections.DurationByMonth;
+
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
-import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class ClientsServiceTest {
 
