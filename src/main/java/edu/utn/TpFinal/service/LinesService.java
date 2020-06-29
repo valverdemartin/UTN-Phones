@@ -5,7 +5,6 @@ import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.LineDTO;
-import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.repository.CitiesRepository;
 import edu.utn.TpFinal.repository.ClientsRepository;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 
 @Service
@@ -53,6 +51,11 @@ public class LinesService {
     public UserLine getLineByClient(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {
         verifyClientAndLine(clientId, lineId);
         return linesRespository.findByIDAndByClient(lineId,clientId);
+    }
+
+    public Page<UserLine> findByClient(Pageable pageable, Integer clientId) throws ClientNotExists {
+        Clients c = clientsRepository.findById(clientId).orElseThrow(()-> new ClientNotExists());
+        return linesRespository.findByClient(pageable, c);
     }
 
     public Lines updateLine(LineDTO newLine, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
@@ -129,7 +132,6 @@ public class LinesService {
         if(!phoneNumber.startsWith(prefix))
             throw new InvalidPrefix();
     }
-
 
 
     /////////////////////////////////End Validations//////////////////////////////////////////////////

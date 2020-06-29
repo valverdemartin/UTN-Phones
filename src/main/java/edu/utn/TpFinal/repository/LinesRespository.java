@@ -31,4 +31,6 @@ public interface LinesRespository extends JpaRepository<Lines, Integer> {
     Optional<Lines> findByPhoneNumber(String phoneNumber);
 
     Boolean existsByStatusAndId(Lines.Status status, Integer id);
+
+    Page<UserLine> findByClient(Pageable pageable, Clients client);
 }
