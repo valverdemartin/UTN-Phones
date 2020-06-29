@@ -1,9 +1,12 @@
 package edu.utn.TpFinal.model;
+
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,7 +28,7 @@ public class Rates {
     private double pricePerMinute;
     @Column(name = "rate_date")
     @NotNull
-    private Date rateDate;
+    private Timestamp rateDate;
     @Column(name = "cost_price")
     @NotNull
     private Double costPrice;

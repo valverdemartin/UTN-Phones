@@ -1,10 +1,11 @@
 package edu.utn.TpFinal.Projections;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 public interface UserCalls {
     String getDestNumber();
     Integer getDuration();
     Double getTotalPrice();
-    Date getCallDate();
+    Timestamp getCallDate();
 }

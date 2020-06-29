@@ -3,15 +3,11 @@ package edu.utn.TpFinal.service;
 import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.repository.EmployeesRepository;
-import org.hibernate.annotations.FlushModeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
 
 
 @Service
@@ -75,6 +71,11 @@ public class EmployeesService {
             throw new UserDniAlreadyExist();
         if(employeesRepository.existsByIdNotAndUserName(employee.getId(), employee.getUserName()))
             throw new UserNameAlreadyExist();
+    }
+
+    public Employees login(String username, String password) {
+        Employees user = employeesRepository.findByUserNameAndPassword(username, password);
+        return user;
     }
     ///////////////////////////END VALIDATIONS//////////////////////////////////
 }

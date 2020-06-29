@@ -30,33 +30,6 @@ public interface ClientsRepository extends JpaRepository<Clients, Integer> {
 
     Page<Clients> findByActiveTrue(Pageable pageable);
 
+    Clients findByUserNameAndPassword(String username, String password);
 
-    //////////////////////////////////Práctica examen///////////////////////////////////////////////////////////
-    @Query(value = "SELECT u.user_name as name, u.user_last_name as lastname, dest_number as destline FROM calls " +
-            "JOIN phone_lines as l " +
-            "on l.id = :idLine " +
-            "JOIN users as u " +
-            "on l.id_client = :idClient " +
-            "WHERE origin_number = :originNumber " +
-            "GROUP BY dest_number " +
-            "ORDER BY COUNT(dest_number) DESC " +
-            "LIMIT 1;", nativeQuery = true)
-    FavouriteCall favouriteCall(@Param("idLine") Integer idLine, @Param("idClient") Integer idClient, @Param("originNumber") String originNumber);
-
-    @Query(value = "SELECT SUM(duration) as sumDuration, u.user_name as name, u.user_last_name as lastname FROM calls " +
-            "JOIN users as u " +
-            "on u.id = :idUser " +
-            "WHERE month(call_date) = :selectedMonth ;", nativeQuery = true)
-    DurationByMonth getDurationByMont(@Param("idUser") Integer idLine, @Param("selectedMonth") Integer selectedMonth);
-
-
-    @Query(value = "SELECT c.dest_number as destNumber,c.duration as duration, c.total_price as totalPrice, c.call_date as callDate " +
-            "FROM calls as c " +
-            "JOIN phone_lines as l " +
-            "ON l.id_client = :idClient " +
-            "WHERE c.total_price >= :totalPrice ;", nativeQuery = true)
-
-    List<UserCalls> getCallsGreaterThan(@Param("idClient") Integer idClient, @Param("totalPrice") Double price);
-
-    ///////////////////////////////////////////FIN///////////////////////////////////////////////////
 }

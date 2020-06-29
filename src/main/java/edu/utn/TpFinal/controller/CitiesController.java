@@ -18,7 +18,7 @@ public class CitiesController {
     private CitiesService citiesService;
 
     @Autowired
-    public CitiesController(CitiesService citiesService) {
+    public CitiesController(CitiesService citiesService){
         this.citiesService = citiesService;
     }
 
@@ -35,8 +35,13 @@ public class CitiesController {
         return ResponseEntity.ok(citiesService.addCity(city));
     }
 
+    @PutMapping("/{id}/")
+    public ResponseEntity updateCity(@RequestBody @Valid final Cities city, @PathVariable Integer id, @RequestParam(value="active", required = false) boolean active) throws CityNotExists, CityNameAlreadyExists, CityShortNameAlreadyExists, CityPrefixAlreadyExists, ProvinceNotExist, CityAlreadyActive, DeletionNotAllowed, CityAlreadyDeleted {
+        return ResponseEntity.ok(citiesService.updateCity(city, id, active));
+    }
+
     @DeleteMapping("/{id}/")
-    public ResponseEntity deleteCityById(@PathVariable Integer id) throws CityNotExists, AlreadyDeleted {
+    public ResponseEntity deleteCityById(@PathVariable Integer id) throws CityNotExists, CityAlreadyDeleted {
         citiesService.deleteCity(id);
         return ResponseEntity.status(200).build();
     }
