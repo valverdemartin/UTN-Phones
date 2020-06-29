@@ -34,7 +34,7 @@ public class CallsController {
     }
 
 
-    public Calls addCall(CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber {
+    public Calls addCall(CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber, RateNotExists {
         return callsService.addCall(call);
     }
 

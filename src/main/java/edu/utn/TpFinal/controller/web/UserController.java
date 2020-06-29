@@ -50,7 +50,7 @@ public class UserController {
 
                                                     /*Bills*/
 
-    @GetMapping("/me/{clientId}/lines/{lineId}/bills/")
+    @GetMapping("/me/lines/{lineId}/bills/")
     public ResponseEntity<Page<UserBills>> getUserBills(@RequestHeader("Authorization") String token,
                                                         @PageableDefault(page=0, size=5) Pageable pageable,
                                                         @PathVariable Integer lineId,
@@ -61,7 +61,7 @@ public class UserController {
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 
-    @GetMapping("/top/me/{clientId}/lines/{lineId}/")
+    @GetMapping("/top/me/lines/{lineId}/")
     public ResponseEntity<List<TopCalls>> findTop10Calls(@RequestHeader("Authorization") String token, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
         Integer clientId = sessionManager.getCurrentUserDTO(token).getId();
         List<TopCalls> calls = callsController.findTop10Calls(clientId, lineId);

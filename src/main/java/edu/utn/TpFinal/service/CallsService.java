@@ -21,14 +21,16 @@ public class CallsService {
 
     private CallsRepository callsRepository;
     private LinesService linesService;
+    private RatesService ratesService;
 
     @Autowired
-    public CallsService(CallsRepository callsRepository, LinesService linesService) {
+    public CallsService(CallsRepository callsRepository, LinesService linesService, RatesService ratesService) {
         this.callsRepository = callsRepository;
         this.linesService = linesService;
+        this.ratesService =  ratesService;
     }
 
-    public Calls addCall(final CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber {
+    public Calls addCall(final CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber, RateNotExists {
         verifyCallLines(call.getOriginNumber(), call.getDestNumber());
         if(callsRepository.existsByOriginNumberAndCallDate(call.getOriginNumber(), call.getCallDate()))
             throw new CallAlreadyExists();
@@ -60,11 +62,13 @@ public class CallsService {
         return callsRepository.getFavouritesCalls(idLine);
     }
 
-    public void verifyCallLines(String originNumber, String destNumber) throws LineNotExists, LineNotActive, InvalidPhoneNumber {
+    public void verifyCallLines(String originNumber, String destNumber) throws LineNotExists, LineNotActive, InvalidPhoneNumber, RateNotExists {
         if(originNumber.length() != 10 ||destNumber.length() != 10)
             throw new InvalidPhoneNumber();
         Lines o = linesService.findByLineNumber(originNumber);
         Lines d = linesService.findByLineNumber(destNumber);
+        if(!ratesService.existsByOriginLineAndDestLine(o.getCity(), d.getCity()))
+            throw new RateNotExists();
         if(!linesService.existsByStatusAndId(Lines.Status.ACTIVE, o.getId()) || !linesService.existsByStatusAndId(Lines.Status.ACTIVE, d.getId()) )
             throw new LineNotActive();
     }
