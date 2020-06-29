@@ -5,7 +5,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @SuperBuilder
 @Entity
@@ -39,6 +38,8 @@ public abstract class Persons {
     private String password;
     @Column(name = "active")
     private Boolean active;
+
+
 //    public enum Type{
 //        CLIENT, EMPLOYEE
 //    }

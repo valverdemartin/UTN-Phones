@@ -9,6 +9,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.math.BigInteger;
+import java.net.URI;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @org.springframework.context.annotation.Configuration
 @PropertySource("application.yml")
@@ -25,7 +31,7 @@ public class  Configuration {
     public FilterRegistrationBean myFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(sessionFilter);
-        registration.addUrlPatterns("/api/*");
+        registration.addUrlPatterns("/api/");
         return registration;
     }
 
@@ -44,6 +50,27 @@ public class  Configuration {
         registration.addUrlPatterns("/client/*");
         return registration;
     }
+
+    public static class UriGenerator {
+        public static URI getLocation(Integer id){
+            return ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(id)
+                    .toUri();
+        }
+    }
+    public static class passwordEncoder{
+        public static String hashPass(String pass) throws NoSuchAlgorithmException {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            byte[] data = pass.getBytes();
+            m.update(data,0, data.length);
+            BigInteger i = new BigInteger(1, m.digest());
+            return String.format("%1$032X", i);
+        }
+    }
+
 }
+
 
 

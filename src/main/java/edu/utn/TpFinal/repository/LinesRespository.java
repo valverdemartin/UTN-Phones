@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 
 public interface LinesRespository extends JpaRepository<Lines, Integer> {
@@ -25,4 +27,8 @@ public interface LinesRespository extends JpaRepository<Lines, Integer> {
     Page<Lines> findByStatus(Pageable pageable, Lines.Status active);
 
     boolean existsByPhoneNumberAndClientNot(String phoneNumber, Clients client);
+
+    Optional<Lines> findByPhoneNumber(String phoneNumber);
+
+    Boolean existsByStatusAndId(Lines.Status status, Integer id);
 }

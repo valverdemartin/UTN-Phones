@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
 
+import java.security.NoSuchAlgorithmException;
+
+import static edu.utn.TpFinal.config.Configuration.passwordEncoder.hashPass;
+
 @RestController
 @RequestMapping("/")
 public class LoginController {
@@ -31,14 +35,15 @@ public class LoginController {
         this.sessionManager = sessionManager;
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws ValidationException, InvalidLoginException {
+    public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws ValidationException, InvalidLoginException, NoSuchAlgorithmException {
         ResponseEntity response;
         try {
+            loginRequestDto.setPassword(hashPass(loginRequestDto.getPassword()));
             UserLogin loggedUser = validateLogin((loginRequestDto));
             String token = sessionManager.createSession(loggedUser);
             response = ResponseEntity.ok().headers(createHeaders(token)).build();
+
         } catch (UserNotExists e) {
             throw new InvalidLoginException();
         }
@@ -60,6 +65,7 @@ public class LoginController {
 
     private UserLogin validateLogin (LoginRequestDto loginRequestDto) throws  UserNotExists {
         UserLogin loggedUser = new UserLogin();
+        
         Clients client = clientsController.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
         if (client != null) {
             loggedUser.setId(client.getId());
