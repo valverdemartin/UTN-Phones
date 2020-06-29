@@ -20,13 +20,13 @@ import javax.validation.ValidationException;
 @RequestMapping("/")
 public class LoginController {
 
-    EmployeesController employessController;
+    EmployeesController employeesController;
     ClientsController clientsController;
     SessionManager sessionManager;
 
     @Autowired
-    public LoginController(ClientsController clientsController, EmployeesController employessController,SessionManager sessionManager) {
-        this.employessController = employessController;
+    public LoginController(ClientsController clientsController, EmployeesController employeesController,SessionManager sessionManager) {
+        this.employeesController = employeesController;
         this.clientsController = clientsController;
         this.sessionManager = sessionManager;
     }
@@ -66,7 +66,7 @@ public class LoginController {
             loggedUser.setUserType(client.getClass().getSimpleName());
 
         } else {
-            Employees employee = employessController.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
+            Employees employee = employeesController.login(loginRequestDto.getUsername(), loginRequestDto.getPassword());
             if (employee != null) {
                 loggedUser.setId(employee.getId());
                 loggedUser.setUserType(employee.getClass().getSimpleName());

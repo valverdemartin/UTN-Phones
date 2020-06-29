@@ -33,7 +33,7 @@ public class  Configuration {
     public FilterRegistrationBean backofficeFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(backOfficeSessionFilter);
-        registration.addUrlPatterns("/employee/*");
+        registration.addUrlPatterns("/backoffice/*");
         return registration;
     }
 
