@@ -2,7 +2,7 @@ package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.DTO.ClientUpdateDTO;
+import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.service.ClientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,11 +38,11 @@ public class ClientsController {
     }
 
 
-    public Clients addClient(Clients client) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public Clients addClient(UserDTO client) throws UserDniAlreadyExist, UserNameAlreadyExist {
         return clientsService.addClient(client);
     }
 
-    public Clients updateClient(ClientUpdateDTO client, Integer idClient, boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
+    public Clients updateClient(UserDTO client, Integer idClient, boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
         return clientsService.updateClient(client, idClient, active);
     }
 

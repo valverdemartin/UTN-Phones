@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ClientUpdateDTO {
+public class UserDTO {
     @JsonProperty
     private String name;
     @JsonProperty

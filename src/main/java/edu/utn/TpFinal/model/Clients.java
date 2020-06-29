@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @SuperBuilder
-@Builder
 @Entity
 @DiscriminatorValue(value="Client")
 @Data

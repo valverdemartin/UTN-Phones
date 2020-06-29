@@ -2,7 +2,7 @@ package edu.utn.TpFinal.service;
 
 import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.DTO.ClientUpdateDTO;
+import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +31,21 @@ public class ClientsService{
         return clientsRepository.findByActiveTrue(pageable);
     }
 
-    public Clients addClient(final Clients client) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public Clients addClient(final UserDTO client) throws UserDniAlreadyExist, UserNameAlreadyExist {
         if(clientsRepository.existsByDni(client.getDni()))
             throw new UserDniAlreadyExist();
         if(clientsRepository.existsByUserName(client.getUserName()))
             throw new UserNameAlreadyExist();
-        return clientsRepository.save(client);
+        Clients c = Clients.builder().name(client.getName())
+                .dni(client.getDni())
+                .lastName(client.getLastName())
+                .password(client.getPassword())
+                .userName(client.getUserName())
+                .active(true).build();
+        return clientsRepository.save(c);
     }
 
-    public Clients updateClient(ClientUpdateDTO newClient, Integer clientID, Boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
+    public Clients updateClient(UserDTO newClient, Integer clientID, Boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
         Clients oldClient = this.clientsRepository.findById(clientID).orElseThrow(()-> new ClientNotExists());
         if(newClient.getActive()){
             if(active)
@@ -58,7 +64,7 @@ public class ClientsService{
         return clientsRepository.save(client);
     }
 
-    public Clients setUpdates(ClientUpdateDTO newClient, Clients oldClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public Clients setUpdates(UserDTO newClient, Clients oldClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
         this.dniAndUserNameValidations(oldClient, newClient);
         oldClient.setDni(newClient.getDni());
         oldClient.setLastName(newClient.getLastName());
@@ -78,7 +84,7 @@ public class ClientsService{
             throw new UserAlreadyActive();
     }
 
-    public void dniAndUserNameValidations(Clients oldClient, ClientUpdateDTO newClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public void dniAndUserNameValidations(Clients oldClient, UserDTO newClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
         if(clientsRepository.existsByIdNotAndDni(oldClient.getId(), newClient.getDni()))
             throw new UserDniAlreadyExist();
         if(clientsRepository.existsByIdNotAndUserName(oldClient.getId(), newClient.getUserName()))

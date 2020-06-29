@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ValidationException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
 @RestControllerAdvice
@@ -202,4 +205,17 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(22, "Line Already Deleted");
     }
 
-}
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LineNotActive.class)
+    public ErrorResponseDto handleLineNotActive() {
+        return new ErrorResponseDto(23, "Line Not Active");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NoSuchAlgorithmException.class)
+    public ErrorResponseDto handleNoSuchAlgorithmException() {
+        return new ErrorResponseDto(24, "Password Enconder Error");
+    }
+
+    }
+

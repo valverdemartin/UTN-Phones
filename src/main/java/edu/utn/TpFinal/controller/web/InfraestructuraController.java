@@ -1,6 +1,8 @@
 package edu.utn.TpFinal.controller.web;
 
 import edu.utn.TpFinal.Exceptions.CallAlreadyExists;
+import edu.utn.TpFinal.Exceptions.InvalidPhoneNumber;
+import edu.utn.TpFinal.Exceptions.LineNotActive;
 import edu.utn.TpFinal.Exceptions.LineNotExists;
 import edu.utn.TpFinal.config.Configuration;
 import edu.utn.TpFinal.controller.CallsController;
@@ -28,7 +30,7 @@ public class InfraestructuraController {
     }
 
     @PostMapping("/calls/")
-    public ResponseEntity<Calls> addCall(@RequestBody @Valid CallsDTO call) throws CallAlreadyExists, LineNotExists {
+    public ResponseEntity<Calls> addCall(@RequestBody @Valid CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber {
         URI uri = Configuration.UriGenerator.getLocation(callsController.addCall(call).getId());
         return ResponseEntity.created(uri).build();
     }

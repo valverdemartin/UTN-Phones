@@ -1,14 +1,17 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.DeletionNotAllowed;
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
+import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.Rates;
 import edu.utn.TpFinal.repository.RatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Service
 
@@ -21,11 +24,16 @@ public class RatesService {
         this.ratesRepository = ratesRepository;
     }
 
-    public Rates addRate(final Rates rate) throws RateAlreadyExists {
-        if(ratesRepository.existsByOriginCityAndDestCity(rate.getOriginCity(), rate.getDestCity()))
+    public Rates addRate(final RateDTO rate) throws RateAlreadyExists {
+        if(ratesRepository.existsByOriginCityAndDestCityAndRateDate(rate.getOriginCity(), rate.getDestCity(), Timestamp.valueOf(LocalDateTime.now())))
             throw new RateAlreadyExists();
-        //rate.setRateDate((Date)Time.now());
-        return ratesRepository.save(rate);
+        Rates r = Rates.builder().costPrice(rate.getCostPrice())
+                .destCity(rate.getDestCity())
+                .originCity(rate.getOriginCity())
+                .pricePerMinute(rate.getPricePerMinute())
+                .rateDate(Timestamp.valueOf(LocalDateTime.now()))
+                .build();
+        return ratesRepository.save(r);
     }
 
     public Page<Rates> getRates(Pageable pageable){

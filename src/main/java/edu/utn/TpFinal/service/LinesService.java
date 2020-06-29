@@ -101,9 +101,17 @@ public class LinesService {
         return linesRespository.existsByPhoneNumber(lineNumber);
     }
 
+    public Lines findByLineNumber(String originNumber) throws LineNotExists {
+        return linesRespository.findByPhoneNumber(originNumber).orElseThrow(()-> new LineNotExists());
+    }
+
+    public Boolean existsByStatusAndId(Lines.Status status, Integer id) {
+        return linesRespository.existsByStatusAndId(status, id);
+    }
+
     public void verifyLine(Lines line) throws ClientNotExists, CityNotExists, InvalidPrefix, InvalidType, InvalidStatus, InvalidPhoneNumber {
         Clients client = clientsService.getClientsById(line.getClient().getId());
-        if(existsByLineNumber(line.getPhoneNumber()))
+        if(existsByLineNumber(line.getPhoneNumber()) || line.getPhoneNumber().length() != 10)
             throw new InvalidPhoneNumber();
         verifyCityPrefixAndPhoneNumber(line.getCity().getId(), line.getPhoneNumber());
         verifyStatusAndType(line.getStatus(), line.getType());
@@ -121,5 +129,8 @@ public class LinesService {
         if(!phoneNumber.startsWith(prefix))
             throw new InvalidPrefix();
     }
+
+
+
     /////////////////////////////////End Validations//////////////////////////////////////////////////
 }

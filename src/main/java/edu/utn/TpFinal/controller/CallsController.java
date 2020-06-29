@@ -1,8 +1,6 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Exceptions.CallAlreadyExists;
-import edu.utn.TpFinal.Exceptions.ClientNotExists;
-import edu.utn.TpFinal.Exceptions.LineNotExists;
+import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
@@ -36,11 +34,9 @@ public class CallsController {
     }
 
 
-    public Calls addCall(CallsDTO call) throws CallAlreadyExists, LineNotExists {
+    public Calls addCall(CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber {
         return callsService.addCall(call);
     }
-
-
 
     public Page<UserCalls> getUserCalls(Pageable pageable, Integer clientId, Integer lineId,
                                         Timestamp from, Timestamp to) throws LineNotExists, ClientNotExists {

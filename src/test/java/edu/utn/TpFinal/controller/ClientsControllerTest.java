@@ -23,14 +23,14 @@ public class ClientsControllerTest {
         clientsController = new ClientsController(clientsService);
     }
 
-    @Test
+    /*@Test
     public void addClientOk() throws  UserDniAlreadyExist, UserNameAlreadyExist {
         Clients clientToAdd = Clients.builder().name("Martin").lastName("Valverde").dni(39137741).active(true).line(null)
                 .password("123").userName("tincho").build();
         doReturn(clientToAdd).when(clientsService).addClient(clientToAdd);
         clientsController.addClient(clientToAdd);
         verify(clientsService, times(1)).addClient(clientToAdd);
-    }
+    }*/
 
     /*@Test public void favouriteCallok(){
         Integer idLine = 1;

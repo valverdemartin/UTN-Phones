@@ -7,7 +7,8 @@ import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.config.Configuration;
 import edu.utn.TpFinal.controller.*;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.DTO.ClientUpdateDTO;
+import edu.utn.TpFinal.model.DTO.RateDTO;
+import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.model.Rates;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+
+import static edu.utn.TpFinal.config.Configuration.passwordEncoder.hashPass;
 
 @RestController
 @RequestMapping("/backoffice")
@@ -55,13 +59,15 @@ public class BackOfficeController {
     }
 
     @PostMapping("/clients/")
-    public ResponseEntity<Clients> addClient(@RequestBody @Valid final Clients client) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public ResponseEntity<Clients> addClient(@RequestBody @Valid final UserDTO client) throws UserDniAlreadyExist, UserNameAlreadyExist, NoSuchAlgorithmException {
+        client.setPassword(hashPass(client.getPassword()));
         URI uri = Configuration.UriGenerator.getLocation(clientsController.addClient(client).getId());
         return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/clients/{clientId}/")
-    public ResponseEntity<Clients> updateClient(@RequestBody @Valid final ClientUpdateDTO client, @PathVariable @Valid final Integer clientId, @RequestParam(value="active", required = false) boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
+    public ResponseEntity<Clients> updateClient(@RequestBody @Valid final UserDTO client, @PathVariable @Valid final Integer clientId, @RequestParam(value="active", required = false) boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists, NoSuchAlgorithmException {
+        client.setPassword(hashPass(client.getPassword()));
         return ResponseEntity.ok(clientsController.updateClient(client, clientId, active));
     }
 
@@ -101,6 +107,12 @@ public class BackOfficeController {
     }
 
                                                     /*Rates*/
+
+    @PostMapping("/rates/")
+    public ResponseEntity<Rates> addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists {
+        URI uri = Configuration.UriGenerator.getLocation(ratesController.addRate(rate).getId());
+        return ResponseEntity.created(uri).build();
+    }
 
     @GetMapping("/rates/")
     public ResponseEntity<Page<Rates>> getRates(@PageableDefault(page=0, size=5) Pageable pageable){

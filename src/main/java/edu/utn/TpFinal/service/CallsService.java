@@ -1,8 +1,6 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.CallAlreadyExists;
-import edu.utn.TpFinal.Exceptions.ClientNotExists;
-import edu.utn.TpFinal.Exceptions.LineNotExists;
+import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
@@ -30,11 +28,10 @@ public class CallsService {
         this.linesService = linesService;
     }
 
-    public Calls addCall(final CallsDTO call) throws CallAlreadyExists, LineNotExists {
+    public Calls addCall(final CallsDTO call) throws CallAlreadyExists, LineNotExists, LineNotActive, InvalidPhoneNumber {
+        verifyCallLines(call.getOriginNumber(), call.getDestNumber());
         if(callsRepository.existsByOriginNumberAndCallDate(call.getOriginNumber(), call.getCallDate()))
             throw new CallAlreadyExists();
-        if(!linesService.existsByLineNumber(call.getOriginNumber()))
-            throw new LineNotExists();
         Calls c = new Calls();
         return callsRepository.save(c.builder()
                 .originNumber(call.getOriginNumber())
@@ -62,4 +59,14 @@ public class CallsService {
         linesService.verifyClientAndLine(idClient, idLine);
         return callsRepository.getFavouritesCalls(idLine);
     }
+
+    public void verifyCallLines(String originNumber, String destNumber) throws LineNotExists, LineNotActive, InvalidPhoneNumber {
+        if(originNumber.length() != 10 ||destNumber.length() != 10)
+            throw new InvalidPhoneNumber();
+        Lines o = linesService.findByLineNumber(originNumber);
+        Lines d = linesService.findByLineNumber(destNumber);
+        if(!linesService.existsByStatusAndId(Lines.Status.ACTIVE, o.getId()) || !linesService.existsByStatusAndId(Lines.Status.ACTIVE, d.getId()) )
+            throw new LineNotActive();
+    }
+
 }
