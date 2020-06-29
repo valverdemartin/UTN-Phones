@@ -7,9 +7,9 @@ import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.config.Configuration;
 import edu.utn.TpFinal.controller.*;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.DTO.UserDTO;
-import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.model.Rates;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,10 +83,16 @@ public class BackOfficeController {
         return lines.isEmpty()? ResponseEntity.status(204).build() : ResponseEntity.ok(lines);
     }*/
 
-    @GetMapping("clients/{clientId}/{lineId}/")
+    @GetMapping("clients/{clientId}/lines/{lineId}/")
     public ResponseEntity<UserLine> getLineByClient(@PathVariable Integer clientId, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
         UserLine line = linesController.getLineByClient(clientId, lineId);
         return line == null ? ResponseEntity.status(404).build() :ResponseEntity.ok(line);
+    }
+
+    @GetMapping("/clients/{clientId}/lines/")
+    public ResponseEntity<Page<UserLine>> getAllLinesByClient(@PageableDefault(page=0, size=5) Pageable pageable, @PathVariable Integer clientId) throws ClientNotExists {
+        Page<UserLine> line = linesController.getClientsLines(pageable, clientId);
+        return line.isEmpty() ? ResponseEntity.status(204).build() :ResponseEntity.ok(line);
     }
 
     @PostMapping("/clients/{idClient}/lines/")
@@ -127,7 +133,8 @@ public class BackOfficeController {
     }
 
                                                     /*Calls*/
-    @GetMapping("/clients/{clientId}/lines/{lineId}/")
+
+    @GetMapping("/clients/{clientId}/lines/{lineId}/calls/")
     public ResponseEntity <Page<UserCalls>> getUsersCalls(@PageableDefault(page=0, size=5) Pageable pageable,
                                                           @PathVariable Integer clientId, @PathVariable Integer lineId,
                                                           @RequestParam(required = false) Timestamp from,

@@ -53,6 +53,10 @@ public class LinesController {
     public Lines deleteLine(Integer lineId) throws LineNotExists, ClientNotExists, LineAlreadyDeleted {
         return linesService.deleteLine(lineId);
     }
+
+    public Page<UserLine> getClientsLines(Pageable pageable, Integer clientId) throws ClientNotExists {
+        return linesService.findByClient(pageable, clientId);
+    }
 }
 
 
