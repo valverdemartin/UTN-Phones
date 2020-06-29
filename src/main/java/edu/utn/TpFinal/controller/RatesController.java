@@ -1,13 +1,20 @@
 package edu.utn.TpFinal.controller;
+
+import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
+import edu.utn.TpFinal.Exceptions.RateNotExists;
+import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.Rates;
 import edu.utn.TpFinal.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@RestController
-@RequestMapping("/rates")
+import javax.validation.Valid;
+
+@Controller
 public class RatesController {
     private RatesService ratesService;
 
@@ -16,13 +23,20 @@ public class RatesController {
         this.ratesService = ratesService;
     }
 
-    @GetMapping("/")
-    public List<Rates> getRates(){
-        return ratesService.getRates();
+
+    public Page<Rates> getRates(Pageable pageable){
+        return ratesService.getRates(pageable);
     }
 
-    @PostMapping("/")
-    public void addRate(@RequestBody @Valid final Rates rate){
-        ratesService.addRate(rate);
+
+    public Rates getRatesById(Integer rateId) throws RateNotExists {
+        return ratesService.getRatesById(rateId);
     }
+
+
+    public Rates addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists {
+        return ratesService.addRate(rate);
+    }
+
+
 }

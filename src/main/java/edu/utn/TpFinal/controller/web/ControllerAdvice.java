@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ValidationException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
 @RestControllerAdvice
 public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
-    /*@ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(InvalidLoginException.class)
-    public ErrorResponseDto handleLoginException(InvalidLoginException exc) {
-        return new ErrorResponseDto(1, "Invalid login");
-    }*/
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)
@@ -72,7 +70,7 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(ProvinceIsNotEmpty.class)
     public ErrorResponseDto handleProvinceIsNotEmpty() {
-        return new ErrorResponseDto(10, "Province is not empty");
+        return new ErrorResponseDto(10, "The province should not have cities");
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
@@ -141,9 +139,83 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
         return new ErrorResponseDto(20, "City Short Name already exists");
     }
 
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProvinceNotExist.class)
     public ErrorResponseDto handleProvinceNotExist() {
         return new ErrorResponseDto(21, "Province Not exists");
     }
-}
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ProvinceNameAlreadyExists.class)
+    public ErrorResponseDto handleProvinceNameAlreadyExists(){
+        return new ErrorResponseDto(23, "Province Name Already exists");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(CityAlreadyDeleted.class)
+    public ErrorResponseDto handleCityAlreadyDeleted(){
+        return new ErrorResponseDto(24, "City Already deleted");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ProvinceAlreadyDeleted.class)
+    public ErrorResponseDto handleProvinceAlreadyDeleted(){
+        return new ErrorResponseDto(25, "Province Already deleted");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(CityAlreadyActive.class)
+    public ErrorResponseDto handleCityAlreadyActive(){
+        return new ErrorResponseDto(26, "City Already Active");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(ProvinceAlreadyActive.class)
+    public ErrorResponseDto handleProvinceAlreadyActive(){
+        return new ErrorResponseDto(27, "Province Already Active");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(RateAlreadyExists.class)
+    public ErrorResponseDto handleRateAlreadyExists(){
+        return new ErrorResponseDto(28, "Rate Already Exists");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RateNotExists.class)
+    public ErrorResponseDto handleRateNotExists(){
+        return new ErrorResponseDto(29, "Rate Not Exists");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BillNotExists.class)
+    public ErrorResponseDto handleBillNotExists(){
+        return new ErrorResponseDto(30, "Bill Not Exists");
+    }
+  
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InvalidLoginException.class)
+    public ErrorResponseDto handleLoginException() {
+        return new ErrorResponseDto(22, "Invalid login");
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(LineAlreadyDeleted.class)
+    public ErrorResponseDto handleLineAlreadyDeleted() {
+        return new ErrorResponseDto(22, "Line Already Deleted");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(LineNotActive.class)
+    public ErrorResponseDto handleLineNotActive() {
+        return new ErrorResponseDto(23, "Line Not Active");
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NoSuchAlgorithmException.class)
+    public ErrorResponseDto handleNoSuchAlgorithmException() {
+        return new ErrorResponseDto(24, "Password Enconder Error");
+    }
+
+    }
+

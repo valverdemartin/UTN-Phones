@@ -4,7 +4,7 @@ package edu.utn.TpFinal.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ErrorResponseDto {
-    @JsonProperty
+
     int code;
     @JsonProperty
     String description;
@@ -29,6 +29,4 @@ public class ErrorResponseDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }

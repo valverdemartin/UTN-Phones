@@ -1,19 +1,14 @@
 package edu.utn.TpFinal.service;
 
 import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.Projections.DurationByMonth;
-import edu.utn.TpFinal.Projections.FavouriteCall;
-import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Clients;
-import edu.utn.TpFinal.model.Lines;
+import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.repository.ClientsRepository;
 import edu.utn.TpFinal.repository.LinesRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -36,77 +31,71 @@ public class ClientsService{
         return clientsRepository.findByActiveTrue(pageable);
     }
 
-    public Clients addClient(final Clients client) throws UserDniAlreadyExist, UserNameAlreadyExist {
+    public Clients addClient(final UserDTO client) throws UserDniAlreadyExist, UserNameAlreadyExist {
         if(clientsRepository.existsByDni(client.getDni()))
             throw new UserDniAlreadyExist();
         if(clientsRepository.existsByUserName(client.getUserName()))
             throw new UserNameAlreadyExist();
-        return clientsRepository.save(client);
+        Clients c = Clients.builder().name(client.getName())
+                .dni(client.getDni())
+                .lastName(client.getLastName())
+                .password(client.getPassword())
+                .userName(client.getUserName())
+                .active(true).build();
+        return clientsRepository.save(c);
     }
 
-    public Clients updateClient(Clients client, Boolean active) throws UserNotExists, UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed {
-        //Clients client = clientsRepository.findById(clientId).orElseThrow(() -> new UserNotExists(HttpStatus.BAD_REQUEST));
-        if(!clientsRepository.existsById(client.getId()))
-                throw new UserNotExists();
-        if(client.getActive()){
+    public Clients updateClient(UserDTO newClient, Integer clientID, Boolean active) throws UserDniAlreadyExist, UserNameAlreadyExist, UserAlreadyDeleted, UserAlreadyActive, DeletionNotAllowed, ClientNotExists {
+        Clients oldClient = this.clientsRepository.findById(clientID).orElseThrow(()-> new ClientNotExists());
+        if(newClient.getActive()){
             if(active)
-                activeValidationClient(client.getId(), true);
+                this.activeValidationClient(oldClient, true);
         }else{
             throw new DeletionNotAllowed();
         }
-        dniAndUserNameValidations(client);
-        return clientsRepository.save(client);
+        oldClient = this.setUpdates(newClient, oldClient);
+        return clientsRepository.save(oldClient);
     }
 
     public Clients deleteClients(Integer id) throws UserAlreadyDeleted, UserAlreadyActive, UserNotExists {
         Clients client = clientsRepository.findById(id).orElseThrow(()-> new UserNotExists());
-        activeValidationClient(id, false);
+        activeValidationClient(client, false);
         client.setActive(false);
         return clientsRepository.save(client);
     }
 
+    public Clients setUpdates(UserDTO newClient, Clients oldClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
+        this.dniAndUserNameValidations(oldClient, newClient);
+        oldClient.setDni(newClient.getDni());
+        oldClient.setLastName(newClient.getLastName());
+        oldClient.setName(newClient.getName());
+        oldClient.setPassword(newClient.getPassword());
+        oldClient.setUserName(newClient.getUserName());
+        oldClient.setActive(newClient.getActive());
+        return oldClient;
+    }
+
+
     ///////////////////////////VALIDATIONS//////////////////////////////////////////
-    public void activeValidationClient(Integer id, Boolean active) throws UserAlreadyDeleted, UserAlreadyActive {
-        Clients client = clientsRepository.findById(id).get();
+    public void activeValidationClient(Clients client, Boolean active) throws UserAlreadyDeleted, UserAlreadyActive {
         if(!active && !client.getActive())
             throw new UserAlreadyDeleted();
         if(active && client.getActive())
             throw new UserAlreadyActive();
     }
 
-    public void dniAndUserNameValidations(Clients client) throws UserDniAlreadyExist, UserNameAlreadyExist {
-        if(clientsRepository.existsByIdNotAndDni(client.getId(), client.getDni()))
+    public void dniAndUserNameValidations(Clients oldClient, UserDTO newClient) throws UserDniAlreadyExist, UserNameAlreadyExist {
+        if(clientsRepository.existsByIdNotAndDni(oldClient.getId(), newClient.getDni()))
             throw new UserDniAlreadyExist();
-        if(clientsRepository.existsByIdNotAndUserName(client.getId(), client.getUserName()))
+        if(clientsRepository.existsByIdNotAndUserName(oldClient.getId(), newClient.getUserName()))
             throw new UserNameAlreadyExist();
     }
     ///////////////////////////END VALIDATIONS//////////////////////////////////
 
-    /////////////////////////////Practica Examen////////////////////////////////
-
-    public List<UserCalls> getCallsGreaterThan(Integer clientId, Double price) throws UserNotExists {
-        if(!clientsRepository.existsById(clientId)){
-            //throw new UserNotExists(HttpStatus.BAD_REQUEST);
-            throw new UserNotExists();
-        }
-        return clientsRepository.getCallsGreaterThan(clientId, price);
+    public Clients login(String username, String password) throws UserNotExists {
+        Clients user = clientsRepository.findByUserNameAndPassword(username, password);
+        return user;
     }
-
-    public FavouriteCall favouriteCall(Integer idLine){
-        Lines line = linesRespository.findById(idLine).get();
-        return clientsRepository.favouriteCall(idLine,line.getClient().getId(),line.getPhoneNumber());
-    }
-
-    public DurationByMonth getDurationByMont(Integer idUser, Integer selectedMonth) throws UserNotExists {
-        if(!clientsRepository.existsById(idUser)){
-            //throw new UserNotExists(HttpStatus.BAD_REQUEST);
-            throw new UserNotExists();
-        }
-        return clientsRepository.getDurationByMont(idUser, selectedMonth);
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////
 }
 
 
