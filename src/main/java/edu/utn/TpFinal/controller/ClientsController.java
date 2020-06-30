@@ -20,7 +20,7 @@ public class ClientsController {
         this.clientsService = clientsService;
     }
 
-    public Clients login(String username, String password) throws UserNotExists, ValidationException {
+    public Clients login(String username, String password) throws ValidationException {
         if ((username != null) && (password != null)) {
             return clientsService.login(username, password);
         } else {

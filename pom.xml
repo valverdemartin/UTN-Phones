@@ -106,8 +106,8 @@
 						<exclude>**/controller/web/ControllerAdvice**</exclude>
 						<exclude>**/controller/Provinces**</exclude>
 						<exclude>**/controller/Cities**</exclude>
-						<exclude>**/service/Provinces**</exclude>
 						<exclude>**/service/Cities**</exclude>
+						<exclude>**/service/Provinces**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -147,7 +147,7 @@
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.9</minimum>
+											<minimum>0.7</minimum>
 										</limit>
 									</limits>
 								</rule>
