@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
-@RequestMapping("/userController")
+@RequestMapping("/user")
 public class User {
 
     CallsController callsController;
@@ -36,6 +36,14 @@ public class User {
 
     }
                                                     /*Calls*/
+    @GetMapping("/me/lines/{lineId}/top/")
+    public ResponseEntity<List<TopCalls>> findTop10Calls(@RequestHeader("Authorization") String token, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
+        Integer clientId = sessionManager.getCurrentUserDTO(token).getId();
+        List<TopCalls> calls = callsController.findTop10Calls(clientId, lineId);
+        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
+    }
+
+
     @GetMapping("/me/lines/{lineId}/calls/")
     public ResponseEntity<Page<UserCalls>> getUsersCalls(@RequestHeader("Authorization") String token,
                                                         @PageableDefault(page=0, size=5) Pageable pageable,
@@ -61,11 +69,6 @@ public class User {
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 
-    @GetMapping("/me/lines/{lineId}/top/")
-    public ResponseEntity<List<TopCalls>> findTop10Calls(@RequestHeader("Authorization") String token, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
-        Integer clientId = sessionManager.getCurrentUserDTO(token).getId();
-        List<TopCalls> calls = callsController.findTop10Calls(clientId, lineId);
-        return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
-    }
 
 }
+

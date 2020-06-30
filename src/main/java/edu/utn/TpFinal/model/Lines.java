@@ -38,7 +38,7 @@ public class Lines {
     @JsonIdentityReference
     private Clients client;
     public enum Status {
-        ACTIVE, SUSPENDED, CANCELLED;
+        ACTIVE, SUSPENDED, CANCELED;
     }
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

@@ -50,7 +50,7 @@ public class  Configuration {
     public FilterRegistrationBean userFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(sessionFilter);
-        registration.addUrlPatterns("/client/*");
+        registration.addUrlPatterns("/user/*");
         return registration;
     }
 
