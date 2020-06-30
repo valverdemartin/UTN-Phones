@@ -99,7 +99,7 @@ public class LinesControllerTest {
                 .city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         when(linesController.deleteLine(lineId)).thenReturn(deletedLine);

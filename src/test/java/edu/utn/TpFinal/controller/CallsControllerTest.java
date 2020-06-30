@@ -35,30 +35,6 @@ public class CallsControllerTest {
         callsController = new CallsController(callsService);
     }
 
-    /*@Test
-    public void getCallsOk(){
-        Pageable pageable = PageRequest.of(0,1);
-        Calls mockedCall = Calls.builder()
-                .callDate(Timestamp.valueOf(LocalDateTime.now()))
-                .destNumber("2235520040")
-                .duration(200)
-                .originNumber("2235520040").bill(null).id(1)
-                .rate(null)
-                .totalPrice(2.5).build();
-        Page<Calls> callsPage = new PageImpl<>(Collections.singletonList(mockedCall));
-        when(callsService.getCalls(pageable)).thenReturn(callsPage);
-        callsService.getCalls(pageable);
-        verify(callsService, times(1)).getCalls(pageable);
-    }
-
-    @Test
-    public void getCallsEmpty(){
-        Pageable pageable = PageRequest.of(0,1);
-        Page<Calls> callsPage = new PageImpl<>(Collections.emptyList());
-        when(callsController.getCalls(pageable)).thenReturn(callsPage);
-        callsService.getCalls(pageable);
-        verify(callsService, times(1)).getCalls(pageable);
-    }*/
 
     @Test
     public void addCallOk() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {

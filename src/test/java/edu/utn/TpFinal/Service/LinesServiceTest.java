@@ -123,7 +123,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(linesRepository.findById(mockedLine.getCity().getId())).thenReturn(java.util.Optional.of(mockedLine));
         linesService.deleteLine(mockedLine.getId());
         verify(linesRepository, times(1)).save(mockedLine);
@@ -135,7 +135,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(linesRepository.findById(mockedLine.getCity().getId())).thenReturn(java.util.Optional.ofNullable(null));
         linesService.deleteLine(mockedLine.getId());
         verify(linesRepository, times(1)).save(mockedLine);
@@ -147,7 +147,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(clientsRepository.findById(mockedLine.getClient().getId())).thenReturn(java.util.Optional.of(mockedCLient));
         when(linesRepository.existsByIdAndClient(mockedLine.getId(), mockedCLient)).thenReturn(false);
         linesService.verifyClientAndLine(mockedLine.getClient().getId(), mockedLine.getId());
@@ -159,7 +159,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(clientsRepository.findById(mockedLine.getClient().getId())).thenReturn(java.util.Optional.of(mockedCLient));
         when(linesRepository.existsByIdAndClient(mockedLine.getId(), mockedCLient)).thenReturn(true);
         linesService.verifyClientAndLine(mockedLine.getClient().getId(), mockedLine.getId());
@@ -194,7 +194,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(clientsRepository.findById(mockedLine.getClient().getId())).thenReturn(java.util.Optional.of(mockedCLient));
         when(linesRepository.findByClient(pageable, mockedCLient)).thenReturn(userLinePage);
         linesService.findByClient(pageable, mockedCLient.getId());
@@ -213,7 +213,7 @@ public class LinesServiceTest {
                 .password("123").userName("test").id(1).build();
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").prefix(223).province(mockedProvince).build();
-        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELLED).type(Lines.Type.MOBILE).build();
+        Lines mockedLine = Lines.builder().city(mockedCity).client(mockedCLient).phoneNumber("2234822789").id(1).status(Lines.Status.CANCELED).type(Lines.Type.MOBILE).build();
         when(clientsRepository.findById(mockedLine.getClient().getId())).thenReturn(java.util.Optional.ofNullable(null));
         when(linesRepository.findByClient(pageable, mockedCLient)).thenReturn(userLinePage);
         linesService.findByClient(pageable, mockedCLient.getId());

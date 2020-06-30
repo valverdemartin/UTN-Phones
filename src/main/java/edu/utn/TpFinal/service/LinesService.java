@@ -64,9 +64,9 @@ public class LinesService {
 
     public Lines deleteLine(Integer lineId) throws LineNotExists, LineAlreadyDeleted {
         Lines line = findById(lineId);
-        if(line.getStatus().equals(Lines.Status.CANCELLED))
+        if(line.getStatus().equals(Lines.Status.CANCELED))
             throw new LineAlreadyDeleted();
-        line.setStatus(Lines.Status.CANCELLED);
+        line.setStatus(Lines.Status.CANCELED);
         return linesRespository.save(line);
     }
 
@@ -88,7 +88,7 @@ public class LinesService {
         if(linesRespository.existsByPhoneNumberAndClientNot(newLine.getPhoneNumber(),client))//revisar
             throw new InvalidPhoneNumber();
         verifyCityPrefixAndPhoneNumber(newLine.getCity().getId(), newLine.getPhoneNumber());//ver prefix
-        if(newLine.getStatus().equals(Lines.Status.CANCELLED))
+        if(newLine.getStatus().equals(Lines.Status.CANCELED))
             throw new DeletionNotAllowed();
     }
     public void verifyClientAndLine(Integer clientId, Integer lineId) throws ClientNotExists, LineNotExists {

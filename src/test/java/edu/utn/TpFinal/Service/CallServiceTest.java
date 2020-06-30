@@ -57,7 +57,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         CallsDTO callsDTO = CallsDTO.builder()
@@ -125,7 +125,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         CallsDTO callsDTO = CallsDTO.builder()
@@ -145,7 +145,7 @@ public class CallServiceTest {
         Lines lineO = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(2).build();
         Lines lineD = Lines.builder().city(Cities.builder().id(1).build())
@@ -173,7 +173,7 @@ public class CallServiceTest {
         Lines lineO = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(2).build();
         Lines lineD = Lines.builder().city(Cities.builder().id(1).build())
@@ -201,7 +201,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         CallsDTO callsDTO = CallsDTO.builder()
@@ -223,7 +223,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         Clients c = Clients.builder().id(1).build();
@@ -252,7 +252,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         Clients c = Clients.builder().id(1).build();
@@ -281,7 +281,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         Clients c = Clients.builder().id(1).build();
@@ -310,7 +310,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         Clients c = Clients.builder().id(1).build();
@@ -340,7 +340,7 @@ public class CallServiceTest {
         Lines line = Lines.builder().city(Cities.builder().id(1).build())
                 .client(Clients.builder().id(1).build())
                 .phoneNumber("2235520040")
-                .status(Lines.Status.CANCELLED)
+                .status(Lines.Status.CANCELED)
                 .type(Lines.Type.MOBILE)
                 .id(1).build();
         Integer clientId = 1;
