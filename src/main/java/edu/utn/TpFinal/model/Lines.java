@@ -49,4 +49,5 @@ public class Lines {
     @Column(name = "status")
     @NotNull
     private Status status;
+
 }
