@@ -1,5 +1,6 @@
 package edu.utn.TpFinal.controller;
 
+import edu.utn.TpFinal.Exceptions.CityNotExists;
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
 import edu.utn.TpFinal.model.DTO.RateDTO;
@@ -33,7 +34,7 @@ public class RatesController {
     }
 
 
-    public Rates addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists {
+    public Rates addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists, CityNotExists {
         return ratesService.addRate(rate);
     }
 }

@@ -115,7 +115,7 @@ public class BackOfficeController {
                                                     /*Rates*/
 
     @PostMapping("/rates/")
-    public ResponseEntity<Rates> addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists {
+    public ResponseEntity<Rates> addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists, CityNotExists {
         URI uri = Configuration.UriGenerator.getLocation(ratesController.addRate(rate).getId());
         return ResponseEntity.created(uri).build();
     }

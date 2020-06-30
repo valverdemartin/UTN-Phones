@@ -1,10 +1,12 @@
 package edu.utn.TpFinal.service;
 
+import edu.utn.TpFinal.Exceptions.CityNotExists;
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.Rates;
+import edu.utn.TpFinal.repository.CitiesRepository;
 import edu.utn.TpFinal.repository.RatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,13 +21,17 @@ import java.time.LocalDateTime;
 public class RatesService {
 
     private RatesRepository ratesRepository;
+    private CitiesRepository citiesRepository;
 
     @Autowired
-    public RatesService(RatesRepository ratesRepository) {
+    public RatesService(RatesRepository ratesRepository, CitiesRepository citiesRepository) {
         this.ratesRepository = ratesRepository;
+        this.citiesRepository = citiesRepository;
     }
 
-    public Rates addRate(final RateDTO rate) throws RateAlreadyExists {
+    public Rates addRate(final RateDTO rate) throws RateAlreadyExists, CityNotExists {
+        if(!citiesRepository.existsById(rate.getOriginCity().getId()) || !citiesRepository.existsById(rate.getDestCity().getId()))
+            throw new CityNotExists();
         if(ratesRepository.existsByOriginCityAndDestCityAndRateDate(rate.getOriginCity(), rate.getDestCity(), Timestamp.valueOf(LocalDateTime.now())))
             throw new RateAlreadyExists();
         Rates r = Rates.builder().costPrice(rate.getCostPrice())

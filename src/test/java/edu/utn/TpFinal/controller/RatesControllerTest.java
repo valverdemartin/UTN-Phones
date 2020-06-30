@@ -1,5 +1,6 @@
 package edu.utn.TpFinal.controller;
 
+import edu.utn.TpFinal.Exceptions.CityNotExists;
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
 import edu.utn.TpFinal.model.Cities;
@@ -60,7 +61,7 @@ public class RatesControllerTest {
     }
 
     @Test
-    public void addRate()throws RateAlreadyExists{
+    public void addRate() throws RateAlreadyExists, CityNotExists {
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").province(mockedProvince).build();
         RateDTO newRateDTO = RateDTO.builder().pricePerMinute(1).costPrice(0.5).rateDate(Timestamp.valueOf(LocalDateTime.now())).destCity(mockedCity).originCity(mockedCity).build();
@@ -79,7 +80,7 @@ public class RatesControllerTest {
     }
 
     @Test(expected = RateAlreadyExists.class)
-    public void addRateAlreadyExist()throws RateAlreadyExists{
+    public void addRateAlreadyExist() throws RateAlreadyExists, CityNotExists {
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").province(mockedProvince).build();
         RateDTO newRateDTO = RateDTO.builder().pricePerMinute(1).costPrice(0.5).rateDate(Timestamp.valueOf(LocalDateTime.now())).destCity(mockedCity).originCity(mockedCity).build();
