@@ -1,0 +1,76 @@
+
+//ARCHIVO CALLS
+{
+	"id" : 1,
+	"OriginNumber" : 2234822789,
+	"DestNumber" : 1145357625,
+	"Duration" : 50,
+	"TotalPrice" : 50,
+	"CostPrice" : 10,
+	"Date" : "2020-06-15 14:05:27",
+	"CallerDNI" : 34092974,
+	"invoiced" : false,
+}
+
+//ARCHIVO BILLS
+{
+	"id" : 1,
+	"DNI" : 34092974,
+	"ClientName" : "Emilio",
+	"ClientLastName" : "Herrada",
+	"PhoneNumber" : 2234752454,
+	"TotalPrice" : 20,
+	"CostPrice" : 10,
+	"CallsCount" : 2,
+	"BillDate" : "2020-06-01",
+	"DueDate" : "2020-06-15",
+	"Active" : true, 
+	"Calls" :[{
+				"OriginNumber" : 2234822789,
+				"DestNumber" : 1145357625,
+				"Duration" : 50,
+				"TotalPrice" : 50,
+				"CostPrice" : 10,
+				"Date" : "2020-06-15 14:05:27",
+				"CallerDNI" : 34092974,
+				"invoiced" : true
+			},
+			{
+				"OriginNumber" : 2234822789,
+				"DestNumber" : 1145357625,
+				"Duration" : 100,
+				"TotalPrice" : 100,
+				"CostPrice" : 20,
+				"Date" : "2020-06-16 17:04:27",
+				"CallerDNI" : 34092974,
+				"invoiced" : true
+			}]
+}
+
+//ARCHIVO USUARIOS
+{
+	"id" : 1,
+	"DNI" : 34092974,
+	"ClientName" : "Emilio",
+	"ClientLastName" : "Herrada",
+	"UserAlias" : "emih89",
+	"Password" : "ASKJDAKLAD",
+	"Active" : true,
+	"lines": {
+		"Prefix" : 223,
+		"LineNumber" : 2234822789,
+		"LineType" : "Mobile",
+		"Status" : "ACTIVE",
+	}
+}
+
+//ARCHIVO CITIES
+{
+	"id" : 1,
+	"Name" : "Mar del Plata",
+	"Province" : "Buenos Aires",
+	"Code" : "MDQ",
+	"Prefix" : 223,
+	"Rates" : [{
+		"dest" : "Tandil", "CostPerMin" : 10 }, {"dest" : "Miramar", "CostPerMin" : 5}],
+}
