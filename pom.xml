@@ -106,6 +106,8 @@
 						<exclude>**/controller/web/ControllerAdvice**</exclude>
 						<exclude>**/controller/Provinces**</exclude>
 						<exclude>**/controller/Cities**</exclude>
+						<exclude>**/service/Provinces**</exclude>
+						<exclude>**/service/Cities**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

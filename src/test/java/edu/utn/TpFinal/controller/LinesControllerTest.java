@@ -1,14 +1,12 @@
 package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.Projections.UserLine;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.service.ClientsService;
-import edu.utn.TpFinal.service.EmployeesService;
 import edu.utn.TpFinal.service.LinesService;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,7 +113,6 @@ public class LinesControllerTest {
         Integer clientId = 1;
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
         UserLine userLine = factory.createProjection(UserLine.class);
-        UserLine userLine2 = factory.createProjection(UserLine.class);
         userLine.setType("MOBILE");
         userLine.setPhoneNumber("2235520040");
         Pageable pageable = PageRequest.of(0,1);

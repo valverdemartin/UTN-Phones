@@ -5,11 +5,10 @@ import edu.utn.TpFinal.Projections.TopCalls;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.model.Calls;
 import edu.utn.TpFinal.model.DTO.CallsDTO;
+import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.service.CallsService;
-import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
-import javax.validation.ValidationException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -64,7 +62,9 @@ public class CallsControllerTest {
 
     @Test
     public void addCallOk() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {
-        Calls mockedCall = Calls.builder()
+        Calls mockedCall = Calls.builder().id(1)
+                .destLine(Lines.builder().id(1).build())
+                .originLine(Lines.builder().id(2).build())
                 .callDate(Timestamp.valueOf(LocalDateTime.now()))
                 .destNumber("2235520040")
                 .duration(200)
@@ -83,57 +83,6 @@ public class CallsControllerTest {
         assertEquals(mockedCall, returned);
     }
 
-    @Test(expected = LineNotExists.class)
-    public void addCallLineNotExists() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {
-        CallsDTO mockedCallDTO = CallsDTO.builder()
-                .callDate(Timestamp.valueOf(LocalDateTime.now()))
-                .destNumber("2230000000")
-                .duration(200)
-                .originNumber("2235520040")
-                .build();
-        when(callsController.addCall(mockedCallDTO)).thenThrow(new LineNotExists());
-        callsController.addCall(mockedCallDTO);
-        verify(callsService, times(1)).addCall(mockedCallDTO);
-    }
-
-    @Test(expected = LineNotActive.class)
-    public void addCallLineNotActive() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {
-        CallsDTO mockedCallDTO = CallsDTO.builder()
-                .callDate(Timestamp.valueOf(LocalDateTime.now()))
-                .destNumber("2230000000")
-                .duration(200)
-                .originNumber("2235520040")
-                .build();
-        when(callsController.addCall(mockedCallDTO)).thenThrow(new LineNotActive());
-        callsController.addCall(mockedCallDTO);
-        verify(callsService, times(1)).addCall(mockedCallDTO);
-    }
-
-    @Test(expected = RateNotExists.class)
-    public void addCallRateNotExists() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {
-        CallsDTO mockedCallDTO = CallsDTO.builder()
-                .callDate(Timestamp.valueOf(LocalDateTime.now()))
-                .destNumber("2230000000")
-                .duration(200)
-                .originNumber("2235520040")
-                .build();
-        when(callsController.addCall(mockedCallDTO)).thenThrow(new RateNotExists());
-        callsController.addCall(mockedCallDTO);
-        verify(callsService, times(1)).addCall(mockedCallDTO);
-    }
-
-    @Test(expected = CallAlreadyExists.class)
-    public void addCallCallAlreadyExists() throws LineNotActive, RateNotExists, InvalidPhoneNumber, LineNotExists, CallAlreadyExists {
-        CallsDTO mockedCallDTO = CallsDTO.builder()
-                .callDate(Timestamp.valueOf(LocalDateTime.now()))
-                .destNumber("2230000000")
-                .duration(200)
-                .originNumber("2235520040")
-                .build();
-        when(callsController.addCall(mockedCallDTO)).thenThrow(new CallAlreadyExists());
-        callsController.addCall(mockedCallDTO);
-        verify(callsService, times(1)).addCall(mockedCallDTO);
-    }
 
     @Test
     public void getUserCallsOk() throws LineNotExists, ClientNotExists {
