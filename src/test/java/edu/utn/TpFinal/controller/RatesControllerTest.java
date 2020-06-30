@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -66,10 +67,18 @@ public class RatesControllerTest {
         Provinces mockedProvince = Provinces.builder().id(1).name("Buenos Aires").active(true).build();
         Cities mockedCity = Cities.builder().id(1).active(true).name("Mar del Plata").shortName("MDQ").province(mockedProvince).build();
         RateDTO newRateDTO = RateDTO.builder().pricePerMinute(1).costPrice(0.5).rateDate(Timestamp.valueOf(LocalDateTime.now())).destCity(mockedCity).originCity(mockedCity).build();
-        Rates returnRate = null;
+        Rates returnRate = Rates.builder()
+                .costPrice(newRateDTO.getCostPrice())
+                .destCity(newRateDTO.getDestCity())
+                .originCity(newRateDTO.getOriginCity())
+                .pricePerMinute(newRateDTO.getPricePerMinute())
+                .rateDate(newRateDTO.getRateDate())
+                .id(1)
+                .build();
         when(ratesController.addRate(newRateDTO)).thenReturn(returnRate);
-        ratesController.addRate(newRateDTO);
+        Rates r = ratesController.addRate(newRateDTO);
         verify(ratesService, times(1)).addRate(newRateDTO);
+        assertEquals(returnRate, r);
     }
 
     @Test(expected = RateAlreadyExists.class)

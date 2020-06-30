@@ -31,12 +31,6 @@ public class BillsService {
         this.linesService = linesService;
     }
 
-    public void deleteBill(Integer id) throws BillNotExists {
-        Bills bill = billsRepository.findById(id).orElseThrow(() -> new BillNotExists());
-        bill.setActive(Boolean.FALSE);
-        billsRepository.save(bill);
-    }
-
     public Page<UserBills> getUserBills(Pageable pageable, Integer clientId, Integer lineId, Timestamp from, Timestamp to) throws BillNotExists, LineNotExists, ClientNotExists {
         linesService.verifyClientAndLine(clientId, lineId);
         Lines line = linesService.findById(lineId);
@@ -48,19 +42,24 @@ public class BillsService {
         return b;
     }
 
-    public UserBills getUserBillById(Integer clientId, Integer lineId, Integer billId) throws LineNotExists, ClientNotExists, BillNotExists {
+     /*public UserBills getUserBillById(Integer clientId, Integer lineId, Integer billId) throws LineNotExists, ClientNotExists, BillNotExists {
         linesService.verifyClientAndLine(clientId, lineId);
         Lines line = verifyLineAndBill(lineId, billId);
         Bills bill = billsRepository.findById(billId).orElseThrow(()-> new BillNotExists());
         return billsRepository.findByIdAndActiveTrue(billId);
-    }
+    }*/
 
-    public Lines verifyLineAndBill(Integer lineId, Integer billId) throws LineNotExists, BillNotExists {//ToDo Revisar
+     /*public void deleteBill(Integer id) throws BillNotExists {
+        Bills bill = billsRepository.findById(id).orElseThrow(() -> new BillNotExists());
+        bill.setActive(Boolean.FALSE);
+        billsRepository.save(bill);
+    }*/
+
+   /*public Lines verifyLineAndBill(Integer lineId, Integer billId) throws LineNotExists, BillNotExists {//ToDo Revisar
         Lines line = linesService.findById(lineId);
         if(!billsRepository.existsByIdAndLine(billId, line))
             throw new BillNotExists();
         return line;
-    }
-
+    }*/
 
 }
