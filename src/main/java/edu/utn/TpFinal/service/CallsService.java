@@ -68,5 +68,4 @@ public class CallsService {
         if(!linesService.existsByStatusAndId(Lines.Status.ACTIVE, o.getId()) || !linesService.existsByStatusAndId(Lines.Status.ACTIVE, d.getId()) )
             throw new LineNotActive();
     }
-
 }

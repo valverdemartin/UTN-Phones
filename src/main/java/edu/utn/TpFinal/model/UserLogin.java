@@ -12,5 +12,4 @@ import lombok.*;
 public class UserLogin {
     private int id;
     String userType;
-
 }

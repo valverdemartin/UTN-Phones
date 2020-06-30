@@ -1,13 +1,8 @@
 package edu.utn.TpFinal.service;
 
-import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.model.Cities;
-import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.repository.CitiesRepository;
 import edu.utn.TpFinal.repository.ProvincesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +18,7 @@ public class CitiesService {
         this.provincesRepository = provincesRepository;
     }
 
-    public Cities addCity(final Cities city) throws CityPrefixAlreadyExists, CityNameAlreadyExists, CityShortNameAlreadyExists, ProvinceNotExist {
+    /*public Cities addCity(final Cities city) throws CityPrefixAlreadyExists, CityNameAlreadyExists, CityShortNameAlreadyExists, ProvinceNotExist {
         cityValidation(city);
         return citiesRepository.save(city);
     }
@@ -82,6 +77,5 @@ public class CitiesService {
             throw new CityAlreadyDeleted();
         if(active && city.getActive())
             throw new CityAlreadyActive();
-    }
-
+    }*/
 }

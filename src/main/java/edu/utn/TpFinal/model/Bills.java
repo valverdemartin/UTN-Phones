@@ -1,9 +1,10 @@
 package edu.utn.TpFinal.model;
+
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Builder
 @Entity
@@ -40,5 +41,4 @@ public class Bills {
     @Column(name = "active")
     @NotNull
     private Boolean active;
-
 }

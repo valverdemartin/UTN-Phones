@@ -8,7 +8,6 @@ import edu.utn.TpFinal.Projections.UserBills;
 import edu.utn.TpFinal.Projections.UserCalls;
 import edu.utn.TpFinal.controller.BillsController;
 import edu.utn.TpFinal.controller.CallsController;
-import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.model.UserLogin;
 import edu.utn.TpFinal.session.SessionManager;
@@ -35,19 +34,19 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class UserControllerTest {
+public class UserTest {
 
     CallsController callsController;
     BillsController billsController;
     SessionManager sessionManager;
-    UserController userController;
+    User user;
 
     @Before
     public void onSetUp() {
         callsController = mock(CallsController.class);
         billsController = mock(BillsController.class);
         sessionManager = mock(SessionManager.class);
-        userController = new UserController(callsController, billsController, sessionManager);
+        user = new User(callsController, billsController, sessionManager);
     }
 
     @Test
@@ -66,7 +65,7 @@ public class UserControllerTest {
         Page<UserCalls> userBillsPage = new PageImpl<>(Collections.singletonList(userCalls));
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(callsController.getUserCalls(pageable,userLogin.getId(), lineId, date, date)).thenReturn(userBillsPage);
-        ResponseEntity<Page<UserCalls>> responseEntity = userController.getUsersCalls(token,pageable,lineId,date,date);
+        ResponseEntity<Page<UserCalls>> responseEntity = user.getUsersCalls(token,pageable,lineId,date,date);
         assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
         assertEquals(userBillsPage, responseEntity.getBody());
     }
@@ -87,7 +86,7 @@ public class UserControllerTest {
         Page<UserCalls> userCallsPage = new PageImpl<>(Collections.emptyList());
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(callsController.getUserCalls(pageable,userLogin.getId(), lineId, date, date)).thenReturn(userCallsPage);
-        ResponseEntity<Page<UserCalls>> responseEntity = userController.getUsersCalls(token,pageable,lineId,date,date);
+        ResponseEntity<Page<UserCalls>> responseEntity = user.getUsersCalls(token,pageable,lineId,date,date);
         assertEquals(HttpStatus.NO_CONTENT,responseEntity.getStatusCode());
     }
 
@@ -111,7 +110,7 @@ public class UserControllerTest {
         Page<UserBills> userBillsPage = new PageImpl<>(Collections.singletonList(mockedBill));
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(billsController.getUserBills(pageable,userLogin.getId(), lineId, date, date)).thenReturn(userBillsPage);
-        ResponseEntity<Page<UserBills>> responseEntity = userController.getUserBills(token,pageable,lineId,date,date);
+        ResponseEntity<Page<UserBills>> responseEntity = user.getUserBills(token,pageable,lineId,date,date);
         assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
         assertEquals(userBillsPage, responseEntity.getBody());
     }
@@ -126,7 +125,7 @@ public class UserControllerTest {
         Page<UserBills> userBillsPage = new PageImpl<>(Collections.emptyList());
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(billsController.getUserBills(pageable,userLogin.getId(), lineId, date, date)).thenReturn(userBillsPage);
-        ResponseEntity<Page<UserBills>> responseEntity = userController.getUserBills(token,pageable,lineId,date,date);
+        ResponseEntity<Page<UserBills>> responseEntity = user.getUserBills(token,pageable,lineId,date,date);
         assertEquals(HttpStatus.NO_CONTENT,responseEntity.getStatusCode());
     }
 
@@ -142,7 +141,7 @@ public class UserControllerTest {
         List<TopCalls> list = Arrays.asList(topCalls);
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(callsController.findTop10Calls(userLogin.getId(), lineId)).thenReturn(list);
-        ResponseEntity<List<TopCalls>> responseEntity = userController.findTop10Calls(token,lineId);
+        ResponseEntity<List<TopCalls>> responseEntity = user.findTop10Calls(token,lineId);
         assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
     }
 
@@ -153,7 +152,7 @@ public class UserControllerTest {
         UserLogin userLogin = UserLogin.builder().id(1).build();
         when(sessionManager.getCurrentUserDTO(token)).thenReturn(userLogin);
         when(callsController.findTop10Calls(userLogin.getId(), lineId)).thenReturn(Collections.emptyList());
-        ResponseEntity<List<TopCalls>> responseEntity = userController.findTop10Calls(token,lineId);
+        ResponseEntity<List<TopCalls>> responseEntity = user.findTop10Calls(token,lineId);
         assertEquals(HttpStatus.NO_CONTENT,responseEntity.getStatusCode());
     }
 }

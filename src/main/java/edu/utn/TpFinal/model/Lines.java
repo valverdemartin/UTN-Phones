@@ -2,7 +2,6 @@ package edu.utn.TpFinal.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -23,25 +22,21 @@ public class Lines {
     @Column(name = "line_number")
     @NotNull
     private String phoneNumber;
-
     public enum Type {
         MOBILE, RESIDENTIAL;
     }
-
     @Enumerated(EnumType.STRING)
     @Column(name = "line_type")
     @NotNull
     private Type type;
     @JoinColumn(name = "id_city")
     @ManyToOne
-    //@JsonBackReference
     @NotNull
     private Cities city;
     @JoinColumn(name = "id_client")
     @ManyToOne
     @JsonIdentityReference
     private Clients client;
-
     public enum Status {
         ACTIVE, SUSPENDED, CANCELLED;
     }
@@ -49,5 +44,4 @@ public class Lines {
     @Column(name = "status")
     @NotNull
     private Status status;
-
 }

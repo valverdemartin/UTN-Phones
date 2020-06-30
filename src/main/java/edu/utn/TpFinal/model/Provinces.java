@@ -1,6 +1,7 @@
 package edu.utn.TpFinal.model;
 
 import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -24,8 +25,6 @@ public class Provinces {
     @NotNull
     @Column(columnDefinition="BOOLEAN DEFAULT true")
     private Boolean active;
-    ////////Province-City//////
     @OneToMany(mappedBy = "province")
     private List<Cities> cities;
-
 }

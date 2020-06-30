@@ -3,11 +3,9 @@ package edu.utn.TpFinal.controller;
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
 import edu.utn.TpFinal.model.Cities;
-import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.Provinces;
 import edu.utn.TpFinal.model.Rates;
-import edu.utn.TpFinal.repository.RatesRepository;
 import edu.utn.TpFinal.service.RatesService;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +20,6 @@ import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 public class RatesControllerTest {
 

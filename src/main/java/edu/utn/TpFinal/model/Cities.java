@@ -39,5 +39,4 @@ public class Cities{
     @NotNull
     @Column(columnDefinition="BOOLEAN DEFAULT true")
     private Boolean active;
-
 }

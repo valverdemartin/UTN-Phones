@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
@@ -37,6 +36,4 @@ public class RatesController {
     public Rates addRate(@RequestBody @Valid final RateDTO rate) throws RateAlreadyExists {
         return ratesService.addRate(rate);
     }
-
-
 }

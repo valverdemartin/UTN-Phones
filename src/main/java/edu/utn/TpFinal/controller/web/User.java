@@ -22,14 +22,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/userController")
-public class UserController {
+public class User {
 
     CallsController callsController;
     BillsController billsController;
     SessionManager sessionManager;
 
     @Autowired
-    public UserController(CallsController callsController, BillsController billsController, SessionManager sessionManager){
+    public User(CallsController callsController, BillsController billsController, SessionManager sessionManager){
         this.callsController = callsController;
         this.billsController = billsController;
         this.sessionManager = sessionManager;
@@ -61,7 +61,7 @@ public class UserController {
         return calls.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(calls);
     }
 
-    @GetMapping("/top/me/lines/{lineId}/")
+    @GetMapping("/me/lines/{lineId}/top/")
     public ResponseEntity<List<TopCalls>> findTop10Calls(@RequestHeader("Authorization") String token, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
         Integer clientId = sessionManager.getCurrentUserDTO(token).getId();
         List<TopCalls> calls = callsController.findTop10Calls(clientId, lineId);

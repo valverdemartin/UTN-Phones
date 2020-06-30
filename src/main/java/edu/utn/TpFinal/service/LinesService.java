@@ -41,10 +41,6 @@ public class LinesService {
         return linesRespository.save(line);
     }
 
-    /*public Page<Lines> getLines(Pageable pageable, Lines. Status status){
-        return linesRespository.findByStatus(pageable, status);
-    }*/
-
     public Lines findById(Integer lineId) throws LineNotExists {
         return linesRespository.findById(lineId).orElseThrow(() -> new LineNotExists());}
 
@@ -59,17 +55,14 @@ public class LinesService {
     }
 
     public Lines updateLine(LineDTO newLine, Integer lineId) throws LineNotExists, ClientNotExists, InvalidPhoneNumber, CityNotExists, InvalidPrefix, InvalidStatus, InvalidType, DeletionNotAllowed {
-        //verifyClientAndLine(clientId, lineId);
         Lines oldLine = this.linesRespository.findById(lineId).orElseThrow(()->new LineNotExists());
-        //Clients client = clientsRepository.findById(clientId).get();
         verifyUpdateData(newLine, oldLine.getClient());
         verifyStatusAndType(newLine.getStatus(), newLine.getType());
         oldLine = this.setUpdate(newLine, oldLine);
         return linesRespository.save(oldLine);
     }
 
-    public Lines deleteLine(Integer lineId) throws LineNotExists, ClientNotExists, LineAlreadyDeleted {
-        //verifyClientAndLine(clientId, lineId);
+    public Lines deleteLine(Integer lineId) throws LineNotExists, LineAlreadyDeleted {
         Lines line = findById(lineId);
         if(line.getStatus().equals(Lines.Status.CANCELLED))
             throw new LineAlreadyDeleted();
@@ -84,6 +77,10 @@ public class LinesService {
         oldLine.setType(newLine.getType());
         return oldLine;
     }
+
+    /*public Page<Lines> getLines(Pageable pageable, Lines. Status status){
+        return linesRespository.findByStatus(pageable, status);
+    }*/
 
     /////////////////////////////////Validations//////////////////////////////////////////////////
 
@@ -132,7 +129,5 @@ public class LinesService {
         if(!phoneNumber.startsWith(prefix))
             throw new InvalidPrefix();
     }
-
-
     /////////////////////////////////End Validations//////////////////////////////////////////////////
 }

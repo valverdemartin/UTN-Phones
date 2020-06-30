@@ -4,8 +4,8 @@ import edu.utn.TpFinal.Exceptions.InvalidLoginException;
 import edu.utn.TpFinal.Exceptions.UserNotExists;
 import edu.utn.TpFinal.controller.ClientsController;
 import edu.utn.TpFinal.controller.EmployeesController;
-import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.Employees;
 import edu.utn.TpFinal.model.UserLogin;
 import edu.utn.TpFinal.session.SessionManager;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
-
 import java.security.NoSuchAlgorithmException;
 
 import static edu.utn.TpFinal.config.Configuration.passwordEncoder.hashPass;

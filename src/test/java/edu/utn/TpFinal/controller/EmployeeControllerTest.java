@@ -1,10 +1,7 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Exceptions.UserNotExists;
-import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.Employees;
-import edu.utn.TpFinal.service.CallsService;
 import edu.utn.TpFinal.service.EmployeesService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +9,6 @@ import org.junit.Test;
 import javax.validation.ValidationException;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 public class EmployeeControllerTest {
 

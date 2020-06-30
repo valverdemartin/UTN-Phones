@@ -24,11 +24,6 @@ public class LinesController {
     }
 
 
-    /*public Page<Lines> getLines(Pageable pageable, Lines.Status status){
-        return linesService.getLines(pageable, status);
-    }*/
-
-
     public UserLine getLineByClient(Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists {
         return linesService.getLineByClient(clientId, lineId);
     }
@@ -44,15 +39,16 @@ public class LinesController {
     }
 
 
-    public Lines deleteLine(Integer lineId) throws LineNotExists, ClientNotExists, LineAlreadyDeleted {
+    public Lines deleteLine(Integer lineId) throws LineNotExists, LineAlreadyDeleted {
         return linesService.deleteLine(lineId);
     }
 
     public Page<UserLine> getClientsLines(Pageable pageable, Integer clientId) throws ClientNotExists {
         return linesService.findByClient(pageable, clientId);
     }
+
+    /*public Page<Lines> getLines(Pageable pageable, Lines.Status status){
+        return linesService.getLines(pageable, status);
+    }*/
 }
 
-
-//ToDo enum con tipo de línea.
-//ToDo verificar "active" sin valor x defecto.

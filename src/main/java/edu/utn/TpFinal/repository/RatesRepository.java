@@ -9,9 +9,9 @@ import java.sql.Timestamp;
 
 public interface RatesRepository extends JpaRepository <Rates, Integer>{
 
-    boolean existsByOriginCityAndDestCityAndIdNot(Cities originCity, Cities destCity, Integer id);
-
     boolean existsByOriginCityAndDestCityAndRateDate(Cities originCity, Cities destCity, Timestamp now);
 
     Boolean existsByOriginCityAndDestCity(Cities cityO, Cities cityD);
+
+    //boolean existsByOriginCityAndDestCityAndIdNot(Cities originCity, Cities destCity, Integer id);
 }

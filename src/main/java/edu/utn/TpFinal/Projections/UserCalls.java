@@ -1,6 +1,4 @@
 package edu.utn.TpFinal.Projections;
-
-
 import java.sql.Timestamp;
 
 public interface UserCalls {

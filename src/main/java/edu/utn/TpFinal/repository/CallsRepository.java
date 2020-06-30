@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public interface CallsRepository extends JpaRepository <Calls, Integer>{

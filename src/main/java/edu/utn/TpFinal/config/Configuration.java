@@ -2,6 +2,7 @@ package edu.utn.TpFinal.config;
 
 
 import edu.utn.TpFinal.session.BackOfficeSessionFilter;
+import edu.utn.TpFinal.session.InfraestructuraSessionFilter;
 import edu.utn.TpFinal.session.SessionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -26,12 +27,14 @@ public class  Configuration {
     SessionFilter sessionFilter;
     @Autowired
     BackOfficeSessionFilter backOfficeSessionFilter;
+    @Autowired
+    InfraestructuraSessionFilter infraestructuraSessionFilter;
 
     @Bean
-    public FilterRegistrationBean myFilter() {
+    public FilterRegistrationBean infraestructuraFilter() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(sessionFilter);
-        registration.addUrlPatterns("/api/");
+        registration.setFilter(infraestructuraSessionFilter);
+        registration.addUrlPatterns("/infraestructura/*");
         return registration;
     }
 

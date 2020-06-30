@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+
 import javax.validation.ValidationException;
 
 @Controller
@@ -46,14 +47,10 @@ public class ClientsController {
         return clientsService.updateClient(client, idClient, active);
     }
 
-
     public Clients deleteClient(Integer clientId) throws UserNotExists,UserAlreadyActive, UserAlreadyDeleted{
         return clientsService.deleteClients(clientId);
     }
 
-    //ToDo 			□ Login user y Log out (borra session 1hs:6min 4/6)
-    //ToDo 			□ Consulta de facturas por rango de fecha de user logueado
-    //ToDo DTO persona con líneas.
 }
 
 

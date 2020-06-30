@@ -22,7 +22,6 @@ import static org.mockito.Mockito.*;
 
 public class ClientsServiceTest {
 
-
     ClientsRepository clientsRepository;
     ClientsService clientsService;
     LinesRespository linesRespository;

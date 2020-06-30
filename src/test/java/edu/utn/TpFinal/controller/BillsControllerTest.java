@@ -4,9 +4,11 @@ import edu.utn.TpFinal.Exceptions.BillNotExists;
 import edu.utn.TpFinal.Exceptions.ClientNotExists;
 import edu.utn.TpFinal.Exceptions.LineNotExists;
 import edu.utn.TpFinal.Projections.UserBills;
-import edu.utn.TpFinal.model.*;
+import edu.utn.TpFinal.model.Cities;
+import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.Lines;
+import edu.utn.TpFinal.model.Provinces;
 import edu.utn.TpFinal.service.BillsService;
-import org.apache.catalina.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
@@ -23,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 public class BillsControllerTest {
 

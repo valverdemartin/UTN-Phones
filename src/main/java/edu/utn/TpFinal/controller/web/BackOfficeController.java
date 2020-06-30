@@ -77,11 +77,6 @@ public class BackOfficeController {
     }
 
                                                     /*LINES*/
-    /*@GetMapping("/lines")
-    public ResponseEntity<Page<Lines>> getLines(@PageableDefault(page=0, size=5) Pageable pageable, @RequestParam("status") Lines.Status status){
-        Page<Lines> lines = linesController.getLines(pageable, status);
-        return lines.isEmpty()? ResponseEntity.status(204).build() : ResponseEntity.ok(lines);
-    }*/
 
     @GetMapping("clients/{clientId}/lines/{lineId}/")
     public ResponseEntity<UserLine> getLineByClient(@PathVariable Integer clientId, @PathVariable Integer lineId) throws LineNotExists, ClientNotExists {
@@ -99,7 +94,6 @@ public class BackOfficeController {
     public ResponseEntity<Lines> addLine(@RequestBody @Valid final Lines line, @PathVariable Integer idClient) throws ClientNotExists, InvalidPrefix, CityNotExists, InvalidType, InvalidStatus, InvalidPhoneNumber {
         URI uri = Configuration.UriGenerator.getLocation(linesController.addLine(line, idClient).getId());
         return ResponseEntity.created(uri).build();
-        //return ResponseEntity.ok(linesController.addLine(line, clientId));
     }
 
     @PutMapping("/lines/{lineId}/")
@@ -108,9 +102,15 @@ public class BackOfficeController {
     }
 
     @DeleteMapping("/lines/{lineId}/")
-    public ResponseEntity<Lines> deleteLine(@PathVariable Integer lineId) throws LineNotExists, ClientNotExists, LineAlreadyDeleted {
+    public ResponseEntity<Lines> deleteLine(@PathVariable Integer lineId) throws LineNotExists, LineAlreadyDeleted {
         return ResponseEntity.ok(linesController.deleteLine(lineId));
     }
+
+    /*@GetMapping("/lines")
+    public ResponseEntity<Page<Lines>> getLines(@PageableDefault(page=0, size=5) Pageable pageable, @RequestParam("status") Lines.Status status){
+        Page<Lines> lines = linesController.getLines(pageable, status);
+        return lines.isEmpty()? ResponseEntity.status(204).build() : ResponseEntity.ok(lines);
+    }*/
 
                                                     /*Rates*/
 

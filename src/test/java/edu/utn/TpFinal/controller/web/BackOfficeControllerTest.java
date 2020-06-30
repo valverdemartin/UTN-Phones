@@ -32,7 +32,7 @@ public class BackOfficeControllerTest {
     CallsController callsController;
     BillsController billsController;
     SessionManager sessionManager;
-    UserController userController;
+    User user;
     RatesController ratesController;
     LinesController linesController;
     ClientsController clientsController;
@@ -43,7 +43,7 @@ public class BackOfficeControllerTest {
         callsController = mock(CallsController.class);
         billsController = mock(BillsController.class);
         sessionManager = mock(SessionManager.class);
-        userController = mock(UserController.class);
+        user = mock(User.class);
         ratesController = mock(RatesController.class);
         linesController = mock(LinesController.class);
         clientsController = mock(ClientsController.class);

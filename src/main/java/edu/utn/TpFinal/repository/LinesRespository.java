@@ -18,13 +18,12 @@ public interface LinesRespository extends JpaRepository<Lines, Integer> {
     @Query(value = "SELECT line_number as phoneNumber, line_type as type "+
                 "FROM phone_lines " +
                 "WHERE id = :lineId AND id_client = :clientId ;", nativeQuery = true)
+
     UserLine findByIDAndByClient(Integer lineId, Integer clientId);
 
     boolean existsByIdAndClient(Integer lineId, Clients client);
+
     Boolean existsByPhoneNumber(String lineNumber);
-
-
-    Page<Lines> findByStatus(Pageable pageable, Lines.Status active);
 
     boolean existsByPhoneNumberAndClientNot(String phoneNumber, Clients client);
 
@@ -33,4 +32,6 @@ public interface LinesRespository extends JpaRepository<Lines, Integer> {
     Boolean existsByStatusAndId(Lines.Status status, Integer id);
 
     Page<UserLine> findByClient(Pageable pageable, Clients client);
+
+    //Page<Lines> findByStatus(Pageable pageable, Lines.Status active);
 }
