@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.Lines;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

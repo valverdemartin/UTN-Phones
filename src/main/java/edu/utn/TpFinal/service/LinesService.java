@@ -41,9 +41,9 @@ public class LinesService {
         return linesRespository.save(line);
     }
 
-    public Page<Lines> getLines(Pageable pageable, Lines. Status status){
+    /*public Page<Lines> getLines(Pageable pageable, Lines. Status status){
         return linesRespository.findByStatus(pageable, status);
-    }
+    }*/
 
     public Lines findById(Integer lineId) throws LineNotExists {
         return linesRespository.findById(lineId).orElseThrow(() -> new LineNotExists());}

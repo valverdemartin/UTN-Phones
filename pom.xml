@@ -108,7 +108,6 @@
 						<exclude>**/controller/Cities**</exclude>
 						<exclude>**/service/Cities**</exclude>
 						<exclude>**/service/Provinces**</exclude>
-
 					</excludes>
 				</configuration>
 				<executions>

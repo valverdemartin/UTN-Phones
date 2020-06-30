@@ -1,21 +1,10 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.model.Cities;
-import edu.utn.TpFinal.model.Provinces;
 import edu.utn.TpFinal.service.ProvincesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
-import javax.validation.Valid;
-import java.util.List;
-
-@RestController
-@RequestMapping("/provinces")
+@Controller
 public class ProvincesController{
 
     private ProvincesService provinceService;
@@ -25,7 +14,7 @@ public class ProvincesController{
         this.provinceService = provinceService;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public ResponseEntity<Page<Provinces>> getProvinces(@PageableDefault(page=0, size=5) Pageable pageable){
         Page<Provinces> provinces = provinceService.getProvinces(pageable);
         return provinces.isEmpty() ? ResponseEntity.status(204).build() : ResponseEntity.ok(provinces);
@@ -50,8 +39,6 @@ public class ProvincesController{
     public ResponseEntity deleteProvinceById(@PathVariable Integer id) throws ProvinceNotExist, ProvinceAlreadyDeleted, ProvinceIsNotEmpty, ProvinceNameAlreadyExists {
         provinceService.deleteProvince(id);
         return ResponseEntity.status(200).build();
-    }
-
-
+    }*/
 
 }

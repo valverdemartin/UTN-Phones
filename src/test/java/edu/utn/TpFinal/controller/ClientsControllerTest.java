@@ -1,8 +1,14 @@
 package edu.utn.TpFinal.controller;
 
+
 import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.Exceptions.UserDniAlreadyExist;
+import edu.utn.TpFinal.Exceptions.UserNameAlreadyExist;
+import edu.utn.TpFinal.Exceptions.UserNotExists;
+import edu.utn.TpFinal.model.Clients;
+import edu.utn.TpFinal.model.DTO.LoginRequestDto;
 import edu.utn.TpFinal.model.DTO.UserDTO;
 import edu.utn.TpFinal.service.ClientsService;
 import org.junit.Before;
@@ -12,12 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.codec.ClientCodecConfigurer;
-
 import javax.validation.ValidationException;
-
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
@@ -127,5 +130,14 @@ public class ClientsControllerTest {
         when(clientsController.getClientById(1)).thenThrow(new ClientNotExists());
         clientsController.getClientById(1);
         verify(clientsService,times(1)).getClientsById(1);
+    }
+  
+    @Test(expected = UserNotExists.class)
+    public void clientLoginFail() throws UserNotExists {
+        LoginRequestDto testLogin = new LoginRequestDto();
+        testLogin.setUsername("test");
+        testLogin.setPassword("123");
+        when(clientsController.login(testLogin.getUsername(), testLogin.getPassword())).thenThrow(new UserNotExists());
+        clientsController.login(testLogin.getUsername(), testLogin.getPassword());
     }
 }

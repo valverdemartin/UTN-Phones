@@ -20,7 +20,7 @@ public class EmployeesService {
         this.employeesRepository = employeesRepository;
     }
 
-    public Employees getEmployeeById(Integer employeeId) throws UserNotExists {
+   /* public Employees getEmployeeById(Integer employeeId) throws UserNotExists {
         return employeesRepository.findByIdAndActiveTrue(employeeId).orElseThrow(()-> new UserNotExists());
     }
 
@@ -71,10 +71,11 @@ public class EmployeesService {
             throw new UserDniAlreadyExist();
         if(employeesRepository.existsByIdNotAndUserName(employee.getId(), employee.getUserName()))
             throw new UserNameAlreadyExist();
-    }
+    }*/
 
     public Employees login(String username, String password) {
         Employees user = employeesRepository.findByUserNameAndPassword(username, password);
+
         return user;
     }
     ///////////////////////////END VALIDATIONS//////////////////////////////////
