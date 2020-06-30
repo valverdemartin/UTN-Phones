@@ -3,6 +3,7 @@ package edu.utn.TpFinal.Projections;
 import edu.utn.TpFinal.model.Lines;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public interface UserBills {
     Lines getLine();
@@ -11,4 +12,20 @@ public interface UserBills {
     Double getCostPrice();
     Date getBillDate();
     Date getDueDate();
+    Boolean getActive();
+
+    public void setLine(Lines line);
+
+    public void setCallCounter(Integer callCounter);
+
+    public void setTotalPrice(Double totalPrice);
+
+    public void setCostPrice(Double costPrice);
+
+    public void setBillDate(Date billDate);
+
+    public void setDueDate(Date dueDate);
+
+    public void setActive(Boolean active);
+
 }

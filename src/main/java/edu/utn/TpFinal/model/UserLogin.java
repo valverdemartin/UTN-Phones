@@ -2,7 +2,7 @@ package edu.utn.TpFinal.model;
 
 import lombok.*;
 
-
+@Builder
 @Data
 @ToString
 @EqualsAndHashCode

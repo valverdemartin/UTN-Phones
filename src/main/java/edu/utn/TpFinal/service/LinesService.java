@@ -41,9 +41,9 @@ public class LinesService {
         return linesRespository.save(line);
     }
 
-    public Page<Lines> getLines(Pageable pageable, Lines. Status status){
+    /*public Page<Lines> getLines(Pageable pageable, Lines. Status status){
         return linesRespository.findByStatus(pageable, status);
-    }
+    }*/
 
     public Lines findById(Integer lineId) throws LineNotExists {
         return linesRespository.findById(lineId).orElseThrow(() -> new LineNotExists());}
@@ -113,7 +113,7 @@ public class LinesService {
     }
 
     public void verifyLine(Lines line) throws ClientNotExists, CityNotExists, InvalidPrefix, InvalidType, InvalidStatus, InvalidPhoneNumber {
-        Clients client = clientsService.getClientsById(line.getClient().getId());
+        clientsService.getClientsById(line.getClient().getId());
         if(existsByLineNumber(line.getPhoneNumber()) || line.getPhoneNumber().length() != 10)
             throw new InvalidPhoneNumber();
         verifyCityPrefixAndPhoneNumber(line.getCity().getId(), line.getPhoneNumber());

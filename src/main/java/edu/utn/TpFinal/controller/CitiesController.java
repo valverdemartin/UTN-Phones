@@ -1,19 +1,10 @@
 package edu.utn.TpFinal.controller;
 
-import edu.utn.TpFinal.Exceptions.*;
-import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.service.CitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
-import javax.validation.Valid;
-
-@RestController
-@RequestMapping("/cities")
+@Controller
 public class CitiesController {
     private CitiesService citiesService;
 
@@ -22,7 +13,7 @@ public class CitiesController {
         this.citiesService = citiesService;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public ResponseEntity<Page<Cities>>
     getCities(@PageableDefault(page=0, size=5) Pageable pageable)
     {
@@ -44,5 +35,5 @@ public class CitiesController {
     public ResponseEntity deleteCityById(@PathVariable Integer id) throws CityNotExists, CityAlreadyDeleted {
         citiesService.deleteCity(id);
         return ResponseEntity.status(200).build();
-    }
+    }*/
 }

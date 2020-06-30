@@ -2,7 +2,6 @@ package edu.utn.TpFinal.controller;
 
 import edu.utn.TpFinal.Exceptions.*;
 import edu.utn.TpFinal.Projections.UserLine;
-import edu.utn.TpFinal.model.Clients;
 import edu.utn.TpFinal.model.DTO.LineDTO;
 import edu.utn.TpFinal.model.Lines;
 import edu.utn.TpFinal.service.ClientsService;
@@ -10,12 +9,7 @@ import edu.utn.TpFinal.service.LinesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.validation.Valid;
 
 
 @Controller
@@ -30,9 +24,9 @@ public class LinesController {
     }
 
 
-    public Page<Lines> getLines(Pageable pageable, Lines.Status status){
+    /*public Page<Lines> getLines(Pageable pageable, Lines.Status status){
         return linesService.getLines(pageable, status);
-    }
+    }*/
 
 
     public UserLine getLineByClient(Integer clientId, Integer lineId) throws LineNotExists, ClientNotExists {

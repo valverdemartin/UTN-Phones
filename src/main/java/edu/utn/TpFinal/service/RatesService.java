@@ -2,6 +2,7 @@ package edu.utn.TpFinal.service;
 
 import edu.utn.TpFinal.Exceptions.RateAlreadyExists;
 import edu.utn.TpFinal.Exceptions.RateNotExists;
+import edu.utn.TpFinal.model.Cities;
 import edu.utn.TpFinal.model.DTO.RateDTO;
 import edu.utn.TpFinal.model.Rates;
 import edu.utn.TpFinal.repository.RatesRepository;
@@ -44,4 +45,7 @@ public class RatesService {
         return ratesRepository.findById(rateId).orElseThrow(()-> new RateNotExists());
     }
 
+    public Boolean existsByOriginLineAndDestLine(Cities cityO, Cities cityD) {
+        return ratesRepository.existsByOriginCityAndDestCity(cityO, cityD);
+    }
 }

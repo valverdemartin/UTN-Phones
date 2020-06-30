@@ -25,11 +25,11 @@ public class BillsController {
     }
 
 
-    public ResponseEntity<UserBills> getUserBillById(Integer clientId,
+    /*public ResponseEntity<UserBills> getUserBillById(Integer clientId,
                                                      Integer lineId,
                                                      Integer billId) throws LineNotExists, BillNotExists, ClientNotExists {
         return ResponseEntity.ok(billsService.getUserBillById(clientId, lineId, billId));
-    }
+    }*/
 
 
     public Page<UserBills> getUserBills(Pageable pageable, Integer clientId,
@@ -39,10 +39,11 @@ public class BillsController {
     }
 
 
-    public ResponseEntity deleteBillById(Integer id) throws BillNotExists {
+    /*public ResponseEntity deleteBillById(Integer id) throws BillNotExists {
         billsService.deleteBill(id);
         return ResponseEntity.status(200).build();
-    }
+    }*/
+
     //ToDo 			□ Refactorizar para BIlls
     //ToDo 			□ Consulta de Bills Debe ser por rango de fecha de user logueado
 }

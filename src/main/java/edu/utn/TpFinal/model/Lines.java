@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@SuperBuilder
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,4 +49,5 @@ public class Lines {
     @Column(name = "status")
     @NotNull
     private Status status;
+
 }
