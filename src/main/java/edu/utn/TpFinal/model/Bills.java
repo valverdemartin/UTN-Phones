@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,4 +40,5 @@ public class Bills {
     @Column(name = "active")
     @NotNull
     private Boolean active;
+
 }

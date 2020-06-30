@@ -113,7 +113,7 @@ public class LinesService {
     }
 
     public void verifyLine(Lines line) throws ClientNotExists, CityNotExists, InvalidPrefix, InvalidType, InvalidStatus, InvalidPhoneNumber {
-        Clients client = clientsService.getClientsById(line.getClient().getId());
+        clientsService.getClientsById(line.getClient().getId());
         if(existsByLineNumber(line.getPhoneNumber()) || line.getPhoneNumber().length() != 10)
             throw new InvalidPhoneNumber();
         verifyCityPrefixAndPhoneNumber(line.getCity().getId(), line.getPhoneNumber());

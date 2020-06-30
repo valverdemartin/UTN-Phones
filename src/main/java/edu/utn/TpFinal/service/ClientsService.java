@@ -92,7 +92,7 @@ public class ClientsService{
     }
     ///////////////////////////END VALIDATIONS//////////////////////////////////
 
-    public Clients login(String username, String password) throws UserNotExists {
+    public Clients login(String username, String password) {
         Clients user = clientsRepository.findByUserNameAndPassword(username, password);
         return user;
     }
